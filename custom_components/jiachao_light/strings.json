@@ -1,0 +1,36 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "添加家超睡眠灯",
+        "description": "请输入设备信息。如果设备已开启蓝牙并在附近，可在下方看到发现的设备列表。\n\n已发现设备：\n{discovered_devices}",
+        "data": {
+          "device_address": "设备 MAC 地址",
+          "device_name": "设备名称",
+          "protocol": "协议类型"
+        }
+      },
+      "custom_uuid": {
+        "title": "自定义 BLE UUID",
+        "description": "{guide}",
+        "data": {
+          "custom_service_uuid": "Service UUID",
+          "custom_write_uuid": "Write Characteristic UUID",
+          "custom_notify_uuid": "Notify Characteristic UUID（可选）"
+        }
+      },
+      "bluetooth": {
+        "title": "发现家超睡眠灯"
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到设备",
+      "no_address": "未找到设备地址",
+      "unknown": "未知错误"
+    },
+    "abort": {
+      "already_configured": "该设备已配置",
+      "no_address": "未找到设备地址"
+    }
+  }
+}
