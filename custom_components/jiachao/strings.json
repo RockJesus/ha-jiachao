@@ -1,0 +1,88 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "家超睡眠灯 - 登录",
+        "description": "请输入家超APP的账号信息\n\n用户名: {username_hint}\n密码: {password_hint}",
+        "data": {
+          "username": "用户名",
+          "password": "密码"
+        }
+      },
+      "select_device": {
+        "title": "选择设备",
+        "description": "请选择要控制的家超睡眠灯",
+        "data": {
+          "device_id": "设备"
+        }
+      }
+    },
+    "error": {
+      "auth_error": "登录失败，请检查用户名和密码",
+      "device_not_found": "未找到所选设备"
+    },
+    "abort": {
+      "already_configured": "该设备已配置"
+    }
+  },
+  "services": {
+    "set_white_noise": {
+      "name": "设置白噪音",
+      "description": "设置睡眠灯的白噪音",
+      "fields": {
+        "entity_id": {
+          "name": "实体",
+          "description": "要控制的灯实体",
+          "required": true,
+          "selector": {
+            "entity": {
+              "domain": "light",
+              "integration": "jiachao"
+            }
+          }
+        },
+        "noise_id": {
+          "name": "白噪音ID",
+          "description": "白噪音的ID（0为关闭）",
+          "required": true,
+          "selector": {
+            "number": {
+              "min": 0,
+              "max": 100,
+              "mode": "box"
+            }
+          }
+        }
+      }
+    },
+    "set_volume": {
+      "name": "设置音量",
+      "description": "设置睡眠灯的音量",
+      "fields": {
+        "entity_id": {
+          "name": "实体",
+          "description": "要控制的灯实体",
+          "required": true,
+          "selector": {
+            "entity": {
+              "domain": "light",
+              "integration": "jiachao"
+            }
+          }
+        },
+        "volume": {
+          "name": "音量",
+          "description": "音量百分比 (0-100)",
+          "required": true,
+          "selector": {
+            "number": {
+              "min": 0,
+              "max": 100,
+              "unit_of_measurement": "%"
+            }
+          }
+        }
+      }
+    }
+  }
+}
