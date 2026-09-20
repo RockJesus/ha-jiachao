@@ -1,10 +1,12 @@
 {
   "domain": "jiachao",
-  "name": "家超睡眠灯",
-  "codeowners": ["@custom"],
+  "name": "家超",
+  "codeowners": ["@jiachao-ha"],
   "config_flow": true,
-  "documentation": "https://github.com/custom/jiachao",
+  "documentation": "https://github.com/jiachao-ha/jiachao-ha",
+  "issue_tracker": "https://github.com/jiachao-ha/jiachao-ha/issues",
+  "requirements": [],
+  "version": "0.1.0",
   "iot_class": "cloud_polling",
-  "requirements": ["paho-mqtt>=1.6.1", "pycryptodome>=3.18.0"],
-  "version": "1.0.0"
+  "loggers": ["custom_components.jiachao"]
 }
