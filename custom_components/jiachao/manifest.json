@@ -6,7 +6,7 @@
   "documentation": "https://github.com/jiachao-ha/jiachao-ha",
   "issue_tracker": "https://github.com/jiachao-ha/jiachao-ha/issues",
   "requirements": [],
-  "version": "1.7.1",
+  "version": "1.7.3",
   "iot_class": "cloud_polling",
   "loggers": ["custom_components.jiachao"]
 }

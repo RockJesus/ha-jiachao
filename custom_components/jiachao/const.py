@@ -8,10 +8,10 @@ PLATFORMS: list[str] = ["sensor", "light", "switch"]
 DEFAULT_BASE_URL = "https://public-jiachao.iotdreamcatcher.net"
 
 # API Endpoints
-API_LOGIN = "/v2/user/login"
+API_LOGIN = "/api/v2/user/login"
 API_LOGOUT = "/v2/user/logout"
-API_USER_INFO = "/v2/user/account/now"
-API_DEVICE_LIST = "/v2/user/device/list"
+API_USER_INFO = "/api/v2/user/account/now"
+API_DEVICE_LIST = "/api/v2/user/device/list"
 API_GROUP_HOMES = "/v2/group/homes"
 API_GROUP_HOME = "/v2/group/home"
 
@@ -21,4 +21,4 @@ CONF_PASSWORD = "password"
 CONF_BASE_URL = "base_url"
 
 # Version
-VERSION = "1.7.1"
+VERSION = "1.7.3"
