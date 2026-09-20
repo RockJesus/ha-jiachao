@@ -21,4 +21,4 @@ CONF_PASSWORD = "password"
 CONF_BASE_URL = "base_url"
 
 # Version
-VERSION = "1.7.0"
+VERSION = "1.7.1"

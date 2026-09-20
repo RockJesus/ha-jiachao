@@ -79,6 +79,10 @@ class JiachaoClient:
         url = f"{self.base_url}{path}"
         headers = self._base_headers(token)
 
+        _LOGGER.debug("Request: %s %s", method, url)
+        if payload:
+            _LOGGER.debug("Payload: %s", str(payload)[:200])
+
         async with self._session.request(
             method,
             url,
@@ -87,7 +91,16 @@ class JiachaoClient:
             params=params,
             ssl=False,
         ) as resp:
-            data = await resp.json(content_type=None)
+            _LOGGER.debug("Response status: %s", resp.status)
+            text = await resp.text()
+            _LOGGER.debug("Response text: %s", text[:500])
+
+            try:
+                data = await resp.json(content_type=None)
+            except Exception as err:
+                raise JiachaoApiError(
+                    f"Invalid JSON response: {text[:200]}"
+                ) from err
 
             if isinstance(data, dict):
                 code = data.get("code")
@@ -104,7 +117,7 @@ class JiachaoClient:
                     )
 
             if resp.status >= 400:
-                raise JiachaoApiError(f"HTTP {resp.status}")
+                raise JiachaoApiError(f"HTTP {resp.status}: {text[:200]}")
 
             return data
 
