@@ -1,4 +1,6 @@
-# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.0.0
+# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.0
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
 让 Home Assistant 接入「家超」智能灯（Winnermicro W800，WiFi+BLE 双模，App 包名 `com.dc.jiachao`，产品 dtype=LT / pid=25）。
 
@@ -17,6 +19,16 @@
 - **MQTT(TLS) 直连**：真实 topic `smart/<deviceId>/dc/<dc>/din|dout/...`，低延迟控制 + 状态订阅
 
 ## 安装
+
+### 方式一：HACS（推荐）
+
+1. HACS → 右上角三个点 → **自定义存储库**
+2. 添加仓库 URL：`https://github.com/RockJesus/ha-jiachao`，类别选择 **集成（Integration）**
+3. 下载 → 重启 Home Assistant
+4. 「设置 → 设备与服务 → 添加集成」→ 搜索 **家超智能灯**
+5. 输入家超 App 手机号 + 密码（设备 UUID 留空即可）→ 若提示短信验证，输入自己手机收到的验证码 → 选择设备 → 完成
+
+### 方式二：手动
 
 1. 将 `custom_components/jiachao/` 整个目录复制到 HA 的 `config/custom_components/` 下
 2. 重启 Home Assistant
