@@ -3,10 +3,11 @@
     "step": {
       "user": {
         "title": "家超智能灯",
-        "description": "使用家超 App 的账号密码登录（手机号 + 密码）。若服务器要求短信验证，会自动进入下一步输入验证码。",
+        "description": "使用家超 App 的账号密码登录（手机号 + 密码）。设备 UUID 留空即可（自动生成，首次登录需短信验证码，之后免验证码）；高级用户可填自己家超 App 抓包得到的设备 UUID 直接免验证码。",
         "data": {
           "username": "手机号",
-          "password": "密码"
+          "password": "密码",
+          "device_uuid": "设备 UUID（可选，留空自动生成）"
         }
       },
       "code": {

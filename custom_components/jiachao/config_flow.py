@@ -1,7 +1,15 @@
-"""家超智能灯配置流程：账号密码登录 →（如需）短信验证码 → 选择设备。"""
+"""家超智能灯配置流程：账号密码登录 →（如需）短信验证码 → 选择设备。
+
+发布版说明（v1.5.0）：
+  - 每个用户【独立设备 UUID】：留空时自动随机生成并持久化，
+    首次登录需短信验证码（发到该用户自己的手机），成功后该 UUID 绑定信任，之后免验证码。
+  - 高级用户可填自己家超 App 的设备 uuid（抓包获取），密码登录直接免验证码。
+  - 不内置任何固定 uuid，避免公开账号的信任关系被其他用户污染。
+"""
 from __future__ import annotations
 
 import logging
+import uuid
 
 import voluptuous as vol
 
@@ -13,6 +21,7 @@ from .const import (
     CONF_USERNAME,
     CONF_PASSWORD,
     CONF_DEVICE_ID,
+    CONF_DEVICE_UUID,
     CONF_SMS_CODE,
     CONF_SCAN_INTERVAL,
     DEFAULT_TRUST_UUID,
@@ -42,15 +51,21 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(self, user_input=None):
         """第一步：家超账号密码登录。
 
-        内部默认使用受信任设备 UUID 登录（免短信验证码）；
-        若该 UUID 失效被要求短信验证（code=479），自动触发验证码并进入第二步。
+        设备 UUID 可留空（自动随机生成，每个用户独立）；
+        高级用户可填自己 App 的设备 uuid 直接免验证码。
+        若服务器要求短信验证（code=479），自动触发验证码并进入第二步。
         """
         errors: dict[str, str] = {}
         if user_input is not None:
             self._api = JiaChaoAPI(async_get_clientsession(self.hass))
             self._username = user_input.get(CONF_USERNAME, "").strip()
             self._password = user_input.get(CONF_PASSWORD, "")
-            self._device_uuid = DEFAULT_TRUST_UUID
+            # 用户填了 uuid 用用户的；留空自动生成独立随机 uuid
+            self._device_uuid = (
+                (user_input.get(CONF_DEVICE_UUID) or "").strip()
+                or DEFAULT_TRUST_UUID
+                or str(uuid.uuid4())
+            )
             try:
                 login_result = await self._api.login(
                     self._username, self._password,
@@ -78,6 +93,7 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema({
             vol.Required(CONF_USERNAME): str,
             vol.Required(CONF_PASSWORD): str,
+            vol.Optional(CONF_DEVICE_UUID, default=""): str,
         })
         return self.async_show_form(
             step_id="user",
@@ -134,6 +150,7 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data_schema=vol.Schema({
                     vol.Required(CONF_USERNAME): str,
                     vol.Required(CONF_PASSWORD): str,
+                    vol.Optional(CONF_DEVICE_UUID, default=self._device_uuid or ""): str,
                 }),
                 errors={"base": "no_devices"},
                 description_placeholders={"title": DOMAIN_TITLE},

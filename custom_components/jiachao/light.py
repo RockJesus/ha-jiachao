@@ -109,10 +109,11 @@ class JiaChaoLight(LightEntity):
                 self._attr_is_on = False
                 changed = True
 
-        # 亮度 lc 0-255
+        # 亮度 lc 0-255（同步给 mqtt，改色温时保持此亮度）
         lc = res.get("lc")
         if isinstance(lc, int):
             self._attr_brightness = max(0, min(255, lc))
+            self._coordinator.mqtt.set_last_brightness(lc)
             changed = True
 
         # 色温 wv（0-1000：暖→冷）→ kelvin

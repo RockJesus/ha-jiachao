@@ -20,13 +20,16 @@ DOMAIN_TITLE = "家超智能灯"
 CONF_USERNAME = "username"          # 家超 App 登录手机号
 CONF_PASSWORD = "password"          # 家超 App 登录密码
 CONF_DEVICE_ID = "device_id"        # 选择的设备 ID（00002500... 20 位数字串）
+CONF_DEVICE_UUID = "device_uuid"    # 设备 UUID（可选，留空自动生成；高级用户可填 App 抓包值免验证码）
 CONF_SMS_CODE = "sms_code"          # 短信验证码（二次验证时输入）
 CONF_SCAN_INTERVAL = "scan_interval"
 
-# 内部默认使用的设备 UUID（家超 App 正在使用的受信任设备标识）。
-# 使用受信任 UUID 密码登录可免短信二次验证（实测 code=479 不会触发），
-# 且 HA 与 App 多 token 并存互不踢线（实测）。
-DEFAULT_TRUST_UUID = "12e178fb-972a-4df1-bee6-805b46a8fbc9"
+# 设备 UUID 说明：
+#   - 公开版本【不内置任何固定 uuid】——每个用户独立随机生成并持久化到配置，
+#     首次登录需短信验证码（绑定该用户自己的手机），之后免验证码。
+#   - 高级用户可填入自己家超 App 的设备 uuid（抓包获取），登录直接免验证码。
+#   - 不再内置固定 uuid：内置值会与公开账号绑定，且会被其他用户登录污染信任关系。
+DEFAULT_TRUST_UUID = None
 
 PLATFORMS: list[Platform] = [Platform.LIGHT]
 

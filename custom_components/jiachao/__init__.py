@@ -26,7 +26,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if token:
         api._token = token  # 使用配置保存的登录 token
     else:
-        # 无 token 时用账号密码重新登录（沿用配置时生成的内部 uuid，减少二次验证）
+        # 无 token 时用账号密码重新登录（沿用配置里持久化的用户独立 uuid，减少二次验证）
         try:
             device_uuid = entry.data.get("device_uuid", "")
             login_result = await api.login(
@@ -36,7 +36,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             token = login_result.get("token", "")
             user_id = login_result.get("userId", user_id)
         except Exception as err:  # noqa: BLE001
-            _LOGGER.error("jiachao login failed: %s", err)
+            _LOGGER.error(
+                "jiachao 重新登录失败（若提示需要短信验证码，请在集成配置里重新输入账号密码"
+                "或填入自己的设备 UUID）: %s", err)
             return False
 
     # 设备信息（含 mqtt 凭据）

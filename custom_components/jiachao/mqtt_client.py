@@ -73,6 +73,8 @@ class JiaChaoMQTT:
         self._last_message: dict | None = None
         # 当前色温（wv 0-1000，0=暖 1000=冷），初始自然白
         self._last_wv = DEFAULT_WV
+        # 当前亮度（lc 0-255）：改色温时保持亮度不变
+        self._last_lc = BRIGHTNESS_MAX
 
     def set_state_callback(self, cb):
         self._state_callback = cb
@@ -175,16 +177,22 @@ class JiaChaoMQTT:
     def set_brightness(self, brightness_0_255: int) -> int:
         """调亮度（value_set mo=129 lc=<0-255>，保持当前色温 wv）。"""
         b = max(0, min(BRIGHTNESS_MAX, int(brightness_0_255)))
+        self._last_lc = b
         self._publish(self._req(
             "value_set", mo=CMD_NORMAL_MODE,
             lc=b, wv=self._last_wv, wh=CMD_WH_WHITE,
         ))
         return 1
 
+    def set_last_brightness(self, brightness_0_255: int) -> None:
+        """状态同步：记录设备实际亮度（供改色温时保持）。"""
+        self._last_lc = max(0, min(BRIGHTNESS_MAX, int(brightness_0_255)))
+
     def set_color_temp(self, kelvin: int) -> int:
         """调色温（暖→冷渐变）：kelvin 2700-6500 → wv 0-1000。
 
         用户实机确认：本灯为双色温灯，wv 是色温编码，非 RGB 彩色。
+        亮度保持当前值（_last_lc），避免调色温时亮度跳变。
         """
         k = max(COLOR_TEMP_MIN_K, min(COLOR_TEMP_MAX_K, int(kelvin)))
         wv = int(round((k - COLOR_TEMP_MIN_K) / (COLOR_TEMP_MAX_K - COLOR_TEMP_MIN_K) * WV_MAX))
@@ -192,6 +200,6 @@ class JiaChaoMQTT:
         self._last_wv = wv
         self._publish(self._req(
             "value_set", mo=CMD_NORMAL_MODE,
-            lc=255, wv=wv, wh=CMD_WH_WHITE,
+            lc=self._last_lc, wv=wv, wh=CMD_WH_WHITE,
         ))
         return 1
