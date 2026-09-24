@@ -4,7 +4,7 @@
 
 开源发布版：**每个用户独立登录自己的家超账号，互不影响**。
 
-![家超](custom_components/jiachao/icon.png)
+![家超](icon.png)
 
 ## 功能
 
