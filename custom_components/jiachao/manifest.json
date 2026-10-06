@@ -1,1 +1,17 @@
-ew0KICAiZG9tYWluIjogImppYWNoYW8iLA0KICAibmFtZSI6ICLlrrbotoXmmbrog73nga8iLA0KICAiY29kZW93bmVycyI6IFsNCiAgICAiQFJvY2tKZXN1cyINCiAgXSwNCiAgImNvbmZpZ19mbG93IjogdHJ1ZSwNCiAgImRlcGVuZGVuY2llcyI6IFtdLA0KICAiZG9jdW1lbnRhdGlvbiI6ICJodHRwczovL2dpdGh1Yi5jb20vUm9ja0plc3VzL2hhLWppYWNoYW8iLA0KICAiaW50ZWdyYXRpb25fdHlwZSI6ICJodWIiLA0KICAiaW90X2NsYXNzIjogImNsb3VkX3B1c2giLA0KICAiaXNzdWVfdHJhY2tlciI6ICJodHRwczovL2dpdGh1Yi5jb20vUm9ja0plc3VzL2hhLWppYWNoYW8vaXNzdWVzIiwNCiAgInJlcXVpcmVtZW50cyI6IFsNCiAgICAicGFoby1tcXR0PT0xLjYuMSINCiAgXSwNCiAgInZlcnNpb24iOiAiMi4yLjEiDQp9DQo=
+{
+  "domain": "jiachao",
+  "name": "家超智能灯",
+  "codeowners": [
+    "@RockJesus"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/RockJesus/ha-jiachao",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/RockJesus/ha-jiachao/issues",
+  "requirements": [
+    "paho-mqtt==1.6.1"
+  ],
+  "version": "2.2.1"
+}

@@ -1,1 +1,8 @@
-bmFtZTogSGFzc2Zlc3QNCm9uOiBbcHVzaCwgcHVsbF9yZXF1ZXN0XQ0Kam9iczoNCiAgdmFsaWRhdGU6DQogICAgcnVucy1vbjogdWJ1bnR1LWxhdGVzdA0KICAgIHN0ZXBzOg0KICAgICAgLSB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0DQogICAgICAtIHVzZXM6IGhvbWUtYXNzaXN0YW50L2FjdGlvbnMvaGFzc2Zlc3RAbWFzdGVyDQo=
+name: Hassfest
+on: [push, pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: home-assistant/actions/hassfest@master

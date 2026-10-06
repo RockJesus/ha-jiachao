@@ -1,1 +1,102 @@
-IyDlrrbotoXmmbrog73nga8gKEppYUNoYW8pIOKAlCBIb21lIEFzc2lzdGFudCDoh6rlrprkuYnpm4bmiJAgdjIuMi4xDQoNClshW2hhY3NfYmFkZ2VdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvSEFDUy1DdXN0b20tb3JhbmdlLnN2Zz9zdHlsZT1mb3ItdGhlLWJhZGdlKV0oaHR0cHM6Ly9naXRodWIuY29tL2hhY3MvaW50ZWdyYXRpb24pDQoNCuiuqSBIb21lIEFzc2lzdGFudCDmjqXlhaXjgIzlrrbotoXjgI3mmbrog73nga/vvIhXaW5uZXJtaWNybyBXODAw77yMV2lGaStCTEUg5Y+M5qih77yMQXBwIOWMheWQjSBgY29tLmRjLmppYWNoYW9g77yM5Lqn5ZOBIGR0eXBlPUxUIC8gcGlkPTI177yJ44CCDQoNCuW8gOa6kOWPkeW4g+eJiO+8mioq5q+P5Liq55So5oi354us56uL55m75b2V6Ieq5bex55qE5a626LaF6LSm5Y+377yM5LqS5LiN5b2x5ZONKirjgIINCg0KIVvlrrbotoVdKGN1c3RvbV9jb21wb25lbnRzL2ppYWNoYW8vaWNvbi5wbmcpDQoNCiMjIOabtOaWsOaXpeW/lw0KDQojIyMgdjIuMi4xDQotIOS4peagvOaMieeFpyBIQSDlrpjmlrnpm4bmiJDlj5HluIPop4TojIPkv67lpI3vvJoNCiAgLSBgbWFuaWZlc3QuanNvbmDvvJpyZXF1aXJlbWVudHMg5Zu65a6a54mI5pysIGBwYWhvLW1xdHQ9PTEuNi4xYO+8m+aYvuW8j+WjsOaYjiBgaW50ZWdyYXRpb25fdHlwZTogaHViYO+8m+mUruW6j+Wvuem9kOWumOaWue+8iGRvbWFpbi9uYW1lIOWcqOWJje+8jOWFtuS9meWtl+avjeW6j++8iQ0KICAtIGBoYWNzLmpzb25g77ya56e76ZmkIEhBQ1Mg5qCh6aqM5LiN5o6l5Y+X55qEIGBkb21haW5zYCAvIGBpb3RfY2xhc3NgIOmUrg0KICAtIOaWsOWinuWumOaWueW/heWhqyBgdHJhbnNsYXRpb25zL2VuLmpzb25g77yI6Iux5paH57+76K+R77yM6ZSu57uT5p6E5LiOIHN0cmluZ3MuanNvbiDkuIDoh7TvvIkNCiAgLSDmlrDlop4gQ0kg5bel5L2c5rWBIGBoYXNzZmVzdC55YW1sYCArIGBoYWNzLnlhbWxg77yIaGFzc2Zlc3QgKyBIQUNTIEFjdGlvbiDmoKHpqozlhajnu7/vvIxIQUNTIOm7mOiupOS7k+W6k+aPkOS6pOWJjee9ru+8iQ0KICAtIGJyYW5kIOWbvuagh+aguOWvue+8mmljb24gMjU2w5cyNTbjgIFsb2dvIDI1NsOXMjU277yI5a6Y5pa55bC65a+45ZCI6KeE77yJDQoNCjxkZXRhaWxzPg0KPHN1bW1hcnk+5Y6G5Y+y54mI5pysPC9zdW1tYXJ5Pg0KDQojIyMgdjIuMi4wDQotIOWutui2heaZuuiDveeBr+aOpeWFpe+8iOi0puWPt+WvhueggeeZu+W9lSAvIOefreS/oeS6jOasoemqjOivgSAvIOiuvuWkh+WPkeeOsCAvIOS6ruW6puiJsua4qeaOp+WItiAvIE1RVFQgVExTIOebtOi/nu+8ie+8m+ivpue7huWNj+iuruingeS4i+aWueOAjOWNj+iuruWunueOsOS+neaNruOAjeOAgg0KDQo8L2RldGFpbHM+DQoNCiMjIOWKn+iDvQ0KDQotICoq6LSm5Y+35a+G56CB55m75b2VKirvvJrkvb/nlKjlrrbotoUgQXBwIOeahOaJi+acuuWPtyArIOWvhueggeeZu+W9le+8iOWvhueggee7jyBNRDUg5pGY6KaB5Lyg6L6T77yJDQotICoq54us56uL6K6+5aSHIFVVSUQqKu+8muavj+S4queUqOaIt+iHquWKqOeUn+aIkOeLrOeri+iuvuWkh+agh+ivhuW5tuaMgeS5heWMlu+8jCoq5LiN5YWx5Lqr44CB5LiN5YaF572u5Lu75L2V5Zu65a6aIFVVSUQqKg0KLSAqKuefreS/oeS6jOasoemqjOivgSoq77ya6aaW5qyh5Zyo5paw6K6+5aSH55m75b2V5pe277yM5a626LaF5pyN5Yqh5Zmo5Lya6KaB5rGC55+t5L+h6aqM6K+B56CB77yI5Y+R5Yiw6K+l55So5oi36Ieq5bex55qE5omL5py677yJ77yM6L6T5YWl5ZCO5a6M5oiQ57uR5a6a77yMKirkuYvlkI7lhY3pqozor4HnoIEqKg0KLSAqKumrmOe6p+mAiemhuSoq77ya5Y+v5aGr5YWl6Ieq5bex5a626LaFIEFwcCDnmoTorr7lpIcgVVVJRO+8iOaKk+WMheiOt+WPlu+8ie+8jOeZu+W9leebtOaOpeWFjeefreS/oemqjOivgeeggQ0KLSAqKuiuvuWkh+WPkeeOsCoq77ya6Ieq5Yqo5YiX5Ye66LSm5Y+35LiL55qE5a626LaF54Gv6K6+5aSH77yM6YCJ5oup5o6l5YWlDQotICoq54Gv5o6n5Yi277yI55yf5a6e5Y2P6K6u77yM5a6e5rWL6aqM6K+B77yJKirvvJrlvIDlhbPjgIHkuq7luqbvvIgwLTI1Ne+8ieOAgeiJsua4qe+8iOaaluKGkuWGt+a4kOWPmO+8iQ0KLSAqKk1RVFQoVExTKSDnm7Tov54qKu+8muecn+WuniB0b3BpYyBgc21hcnQvPGRldmljZUlkPi9kYy88ZGM+L2Rpbnxkb3V0Ly4uLmDvvIzkvY7lu7bov5/mjqfliLYgKyDnirbmgIHorqLpmIUNCg0KIyMg5a6J6KOFDQoNCiMjIyDmlrnlvI/kuIDvvJpIQUNT77yI5o6o6I2Q77yJDQoNCjEuIEhBQ1Mg4oaSIOWPs+S4iuinkuS4ieS4queCuSDihpIgKiroh6rlrprkuYnlrZjlgqjlupMqKg0KMi4g5re75Yqg5LuT5bqTIFVSTO+8mmBodHRwczovL2dpdGh1Yi5jb20vUm9ja0plc3VzL2hhLWppYWNoYW9g77yM57G75Yir6YCJ5oupICoq6ZuG5oiQ77yISW50ZWdyYXRpb27vvIkqKg0KMy4g5LiL6L29IOKGkiDph43lkK8gSG9tZSBBc3Npc3RhbnQNCjQuIOOAjOiuvue9riDihpIg6K6+5aSH5LiO5pyN5YqhIOKGkiDmt7vliqDpm4bmiJDjgI3ihpIg5pCc57SiICoq5a626LaF5pm66IO954GvKioNCjUuIOi+k+WFpeWutui2hSBBcHAg5omL5py65Y+3ICsg5a+G56CB77yI6K6+5aSHIFVVSUQg55WZ56m65Y2z5Y+v77yJ4oaSIOiLpeaPkOekuuefreS/oemqjOivge+8jOi+k+WFpeiHquW3seaJi+acuuaUtuWIsOeahOmqjOivgeeggSDihpIg6YCJ5oup6K6+5aSHIOKGkiDlrozmiJANCg0KIyMjIOaWueW8j+S6jO+8muaJi+WKqA0KDQoxLiDlsIYgYGN1c3RvbV9jb21wb25lbnRzL2ppYWNoYW8vYCDmlbTkuKrnm67lvZXlpI3liLbliLAgSEEg55qEIGBjb25maWcvY3VzdG9tX2NvbXBvbmVudHMvYCDkuIsNCjIuIOmHjeWQryBIb21lIEFzc2lzdGFudA0KMy4g44CM6K6+572uIOKGkiDorr7lpIfkuI7mnI3liqEg4oaSIOa3u+WKoOmbhuaIkOOAjeKGkiDmkJzntKIgKirlrrbotoXmmbrog73nga8qKg0KNC4g6L6T5YWl5a626LaFIEFwcCDmiYvmnLrlj7cgKyDlr4bnoIHvvIjorr7lpIcgVVVJRCDnlZnnqbrljbPlj6/vvInihpIg6Iul5o+Q56S655+t5L+h6aqM6K+B77yM6L6T5YWl6Ieq5bex5omL5py65pS25Yiw55qE6aqM6K+B56CBIOKGkiDpgInmi6norr7lpIcg4oaSIOWujOaIkA0KDQojIyDlpJrnlKjmiLcgLyDpmpDnp4Hor7TmmI7vvIjlj5HluIPniYjph43ngrnvvIkNCg0KfCDpl67popggfCDor7TmmI4gfA0KfCAtLS0gfCAtLS0gfA0KfCDlhbbku5bnvZHlj4vog73nmbvlvZXoh6rlt7HnmoTotKblj7flkJfvvJ8gfCAqKuiDvSoq44CC5q+P5Liq55So5oi355WZ56m6IFVVSUQg5pe277yM6ZuG5oiQ6Ieq5Yqo55Sf5oiQKirni6znq4vpmo/mnLogVVVJRCoqIOW5tuWtmOWFpeWQhOiHqiBIQSDphY3nva7vvJvmnI3liqHlmajmjInjgIzotKblj7cgKyBVVUlE44CN57uR5a6a5L+h5Lu777yM5LqS5LiN5bmy5omwIHwNCnwg6aaW5qyh55m75b2V6KaB6aqM6K+B56CB5ZCX77yfIHwg6KaB77yI5Y+R5Yiw6K+l55So5oi36Ieq5bex55qE5omL5py677yJ44CC6aqM6K+B6YCa6L+H5ZCOIFVVSUQg57uR5a6a6K+l6LSm5Y+377yMKirkuYvlkI7lr4bnoIHnmbvlvZXlhY3pqozor4HnoIEqKiB8DQp8IOWGhee9rueahCBVVUlEIOacieW9seWTjeWQl++8nyB8ICoq5Y+R5biD54mI5bey56e76Zmk5YaF572u5Zu65a6aIFVVSUQqKuOAguWbuuWumiBVVUlEIOaYr+W8gOWPkeiAheeahOengeacieiuvuWkh+agh+ivhu+8jOWFrOW8gOWQjuS8muiiq+S7luS6uueZu+W9leaxoeafk+S/oeS7u+WFs+ezu++8jOS4lOWvueWFtuS7lueUqOaIt+aXoOebiiB8DQp8IOaIkeeahOi0puWPt+S8muiiq+S7luS6uuW9seWTjeWQl++8nyB8IOS4jeS8muOAguavj+S6uueUqOiHquW3seeahCBVVUlEICsg6Ieq5bex55qE6LSm5Y+377yb6ZuG5oiQ5YaF5LiN5L+d5a2Y5LuW5Lq65Lu75L2V5Yet5o2uIHwNCnwg5aGr6Ieq5bexIEFwcCDnmoQgVVVJRCDmnInku4DkuYjnlKjvvJ8gfCDpq5jnuqfnlKjmiLfku47oh6rlt7HlrrbotoUgQXBwIOaKk+WMheW+l+WIsCBVVUlE77yI5aaCIGBHRVQgL3YyL3VzZXIvbG9naW5gIOivt+axguWPguaVsO+8ie+8jOWhq+WFpeWQjuWvhueggeeZu+W9lSoq55u05o6l5YWN55+t5L+h6aqM6K+B56CBKiogfA0KDQojIyDljY/orq7lrp7njrDkvp3mja7vvIgyMDI2LTA5LTI0IOWunua1i+mUgeWumiArIOeUqOaIt+WunuacuuehruiupO+8iQ0KDQp8IOWxgiB8IOe7k+iuuiB8IOadpea6kCB8DQp8IC0tLSB8IC0tLSB8IC0tLSB8DQp8IEFQSSDln58gfCBgaHR0cHM6Ly9kYzAyLmlvdGRyZWFtY2F0Y2hlci5uZXQuY246MTI0NDNg77yIL3YyL++8iSB8IG1pdG1wcm94eSDmipPljIXvvIhBUEkg5rWB6YeP5YWo5piO5paH77yJIHwNCnwg55m75b2VIHwgYEdFVCAvdjIvdXNlci9sb2dpbmDvvIxgcGFzc3dvcmQ9TUQ1KOWvhueggSlg77ybNDc5IOmcgOefreS/oemqjOivge+8mzQ2NCDlr4bnoIHplJnor68gfCDlrp7mtYsgfA0KfCDpqozor4HnoIEgfCBgR0VUIC92Mi91c2VyL2xvZ2luL2NvZGVg77yI5Y+R56CB77yMNDcxIOmZkOmike+8ie+8m2BHRVQgL3YyL3VzZXIvY29kZS9sb2dpbj9jb2RlPTznn63kv6HnoIE+YO+8iOeZu+W9le+8iSB8IOWunua1iyB8DQp8IE1RVFQgfCBUTFMgODg4M++8jFNOSSDln5/lkI3vvJt1c2VybmFtZT1gPGRldmljZUlkPl9DTjx1c2VySWQ+YO+8jHBhc3N3b3JkPeiuvuWkh+e6pyBtcXR0IHRva2Vu77ybY2xpZW50SWQ9YGFuZF88ZGV2aWNlSWQ+Xzzpmo/mnLo+YCB8IOaJi+WGmSBDT05ORUNUIOWunua1iyBDT05OQUNLPTAgfA0KfCDlkb3ku6QgdG9waWMgfCBgc21hcnQvPGRldmljZUlkPi9kYy8yNS9kaW4vY29uZmlnYCB8IOiuoumYhSBgKy8rLyNgIOWunuaKk+WIsCBBcHAg5rWB6YePIHwNCnwg54q25oCBIHRvcGljIHwgYHNtYXJ0LzxkZXZpY2VJZD4vZGMvMjUvZG91dC9zdGF0dXNg44CBYC9kb3V0L29ubGluZWAgfCDlkIzkuIrvvIjlkKvorr7lpIcgSVAvTUFDIOS4iuaKpe+8iSB8DQp8IOWRveS7pOagvOW8jyB8IGB7Im0iOnsicmVxIjp7ImEiOiJ2YWx1ZV9zZXQiLCJtbyI6Li4uLCJyYW5kIjouLi59fX1gIHwg5a6e5rWL5o6n5Yi25oiQ5YqfIHwNCnwg5byA5YWzIHwgYHZhbHVlX3NldCBtbz0yMjVg77yI5byA77yJLyBgbW89MjI0YO+8iOWFs++8iSB8IOeUqOaIt+WunuacuuehruiupOaWueWQkSB8DQp8IOS6ruW6piB8IGB2YWx1ZV9zZXQgbW89MTI5IGxjPTwwLTI1NT4gd3Y9POW9k+WJjeiJsua4qT4gd2g9NTAwYCB8IOWunua1iyBsYz02MC8xMTYvMjMwIOeUn+aViCB8DQp8IOiJsua4qSB8IGB2YWx1ZV9zZXQgbW89MTI5IGxjPTzlvZPliY3kuq7luqY+IHd2PTwwLTEwMDA6IDDmmpbihpIxMDAw5Ya3PiB3aD01MDBgIHwg55So5oi35a6e5py656Gu6K6k77ya5pqW4oaS5Ya35riQ5Y+Y77yM5Lqu5bqm5L+d5oyB5LiN5Y+YIHwNCg0KIyMg5bey55+l6ZmQ5Yi277yI5aaC5a6e6K+05piO77yJDQoNCjEuICoq54q25oCB5Yik5patKirvvJptbz0yMjUvMTI5IOS4uuW8gOOAgTIyNCDkuLrlhbPvvIjnlKjmiLflrp7mnLrnoa7orqTvvInjgIIxMjkg5Li66LCD6IqC5qih5byP77yI54Gv5Lqu77yJ44CCDQoyLiAqKuiJsua4qeaYoOWwhCoq77yad3Y9MCDihpIgMjcwMEvvvIjmmpbvvInjgIF3dj0xMDAwIOKGkiA2NTAwS++8iOWGt++8ie+8jOe6v+aAp+aYoOWwhO+8m0hBIOiJsua4qea7keWdl+WNs+aaluKGkuWGt+a4kOWPmOOAgg0KMy4g55+t5L+h6aqM6K+B56CB5Y+R6YCB5pyJ6aKR546H6ZmQ5Yi277yIY29kZT00NzHvvInvvIzov57nu63lpLHotKXor7fpl7TpmpTlh6DliIbpkp/lho3or5XvvJvoi6XkuIDnm7TmlLbkuI3liLDvvIzor7floavoh6rlt7HnmoQgQXBwIFVVSUQg57uV6L+H6aqM6K+B56CB44CCDQo0LiDlrrbotoXmnI3liqHlmajlj6/og73lr7nnmbvlvZXlgZrpo47mjqfvvIzor7fli7/pq5jpopHph43or5XnmbvlvZXjgIINCg0KIyMg5pSv5oyBDQoNCi0gSEEg54mI5pys77yaMjAyNC54IOWPiuS7peS4iu+8iDIwMjYuOSDlrp7mtYvlj6/nlKjvvIkNCi0g6K6+5aSH77ya5a626LaFIEFwcCDkuIvmiYDmnIkgZHR5cGU9TFQg54Gv77yIcGlkPTI1IOezu+WIl++8jOWmguOAjOedoeecoOeBr+OAje+8iQ0KDQojIyDml6Xlv5cNCg0K5ZyoIGBjb25maWd1cmF0aW9uLnlhbWxgIOa3u+WKoO+8mg0KDQpgYGB5YW1sDQpsb2dnZXI6DQogIGRlZmF1bHQ6IHdhcm5pbmcNCiAgbG9nczoNCiAgICBjdXN0b21fY29tcG9uZW50cy5qaWFjaGFvOiBkZWJ1Zw0KYGBgDQo=
+# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.1
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+
+让 Home Assistant 接入「家超」智能灯（Winnermicro W800，WiFi+BLE 双模，App 包名 `com.dc.jiachao`，产品 dtype=LT / pid=25）。
+
+开源发布版：**每个用户独立登录自己的家超账号，互不影响**。
+
+![家超](custom_components/jiachao/icon.png)
+
+## 更新日志
+
+### v2.2.1
+- 严格按照 HA 官方集成发布规范修复：
+  - `manifest.json`：requirements 固定版本 `paho-mqtt==1.6.1`；显式声明 `integration_type: hub`；键序对齐官方（domain/name 在前，其余字母序）
+  - `hacs.json`：移除 HACS 校验不接受的 `domains` / `iot_class` 键
+  - 新增官方必填 `translations/en.json`（英文翻译，键结构与 strings.json 一致）
+  - 新增 CI 工作流 `hassfest.yaml` + `hacs.yaml`（hassfest + HACS Action 校验全绿，HACS 默认仓库提交前置）
+  - brand 图标核对：icon 256×256、logo 256×256（官方尺寸合规）
+
+<details>
+<summary>历史版本</summary>
+
+### v2.2.0
+- 家超智能灯接入（账号密码登录 / 短信二次验证 / 设备发现 / 亮度色温控制 / MQTT TLS 直连）；详细协议见下方「协议实现依据」。
+
+</details>
+
+## 功能
+
+- **账号密码登录**：使用家超 App 的手机号 + 密码登录（密码经 MD5 摘要传输）
+- **独立设备 UUID**：每个用户自动生成独立设备标识并持久化，**不共享、不内置任何固定 UUID**
+- **短信二次验证**：首次在新设备登录时，家超服务器会要求短信验证码（发到该用户自己的手机），输入后完成绑定，**之后免验证码**
+- **高级选项**：可填入自己家超 App 的设备 UUID（抓包获取），登录直接免短信验证码
+- **设备发现**：自动列出账号下的家超灯设备，选择接入
+- **灯控制（真实协议，实测验证）**：开关、亮度（0-255）、色温（暖→冷渐变）
+- **MQTT(TLS) 直连**：真实 topic `smart/<deviceId>/dc/<dc>/din|dout/...`，低延迟控制 + 状态订阅
+
+## 安装
+
+### 方式一：HACS（推荐）
+
+1. HACS → 右上角三个点 → **自定义存储库**
+2. 添加仓库 URL：`https://github.com/RockJesus/ha-jiachao`，类别选择 **集成（Integration）**
+3. 下载 → 重启 Home Assistant
+4. 「设置 → 设备与服务 → 添加集成」→ 搜索 **家超智能灯**
+5. 输入家超 App 手机号 + 密码（设备 UUID 留空即可）→ 若提示短信验证，输入自己手机收到的验证码 → 选择设备 → 完成
+
+### 方式二：手动
+
+1. 将 `custom_components/jiachao/` 整个目录复制到 HA 的 `config/custom_components/` 下
+2. 重启 Home Assistant
+3. 「设置 → 设备与服务 → 添加集成」→ 搜索 **家超智能灯**
+4. 输入家超 App 手机号 + 密码（设备 UUID 留空即可）→ 若提示短信验证，输入自己手机收到的验证码 → 选择设备 → 完成
+
+## 多用户 / 隐私说明（发布版重点）
+
+| 问题 | 说明 |
+| --- | --- |
+| 其他网友能登录自己的账号吗？ | **能**。每个用户留空 UUID 时，集成自动生成**独立随机 UUID** 并存入各自 HA 配置；服务器按「账号 + UUID」绑定信任，互不干扰 |
+| 首次登录要验证码吗？ | 要（发到该用户自己的手机）。验证通过后 UUID 绑定该账号，**之后密码登录免验证码** |
+| 内置的 UUID 有影响吗？ | **发布版已移除内置固定 UUID**。固定 UUID 是开发者的私有设备标识，公开后会被他人登录污染信任关系，且对其他用户无益 |
+| 我的账号会被他人影响吗？ | 不会。每人用自己的 UUID + 自己的账号；集成内不保存他人任何凭据 |
+| 填自己 App 的 UUID 有什么用？ | 高级用户从自己家超 App 抓包得到 UUID（如 `GET /v2/user/login` 请求参数），填入后密码登录**直接免短信验证码** |
+
+## 协议实现依据（2026-09-24 实测锁定 + 用户实机确认）
+
+| 层 | 结论 | 来源 |
+| --- | --- | --- |
+| API 域 | `https://dc02.iotdreamcatcher.net.cn:12443`（/v2/） | mitmproxy 抓包（API 流量全明文） |
+| 登录 | `GET /v2/user/login`，`password=MD5(密码)`；479 需短信验证；464 密码错误 | 实测 |
+| 验证码 | `GET /v2/user/login/code`（发码，471 限频）；`GET /v2/user/code/login?code=<短信码>`（登录） | 实测 |
+| MQTT | TLS 8883，SNI 域名；username=`<deviceId>_CN<userId>`，password=设备级 mqtt token；clientId=`and_<deviceId>_<随机>` | 手写 CONNECT 实测 CONNACK=0 |
+| 命令 topic | `smart/<deviceId>/dc/25/din/config` | 订阅 `+/+/#` 实抓到 App 流量 |
+| 状态 topic | `smart/<deviceId>/dc/25/dout/status`、`/dout/online` | 同上（含设备 IP/MAC 上报） |
+| 命令格式 | `{"m":{"req":{"a":"value_set","mo":...,"rand":...}}}` | 实测控制成功 |
+| 开关 | `value_set mo=225`（开）/ `mo=224`（关） | 用户实机确认方向 |
+| 亮度 | `value_set mo=129 lc=<0-255> wv=<当前色温> wh=500` | 实测 lc=60/116/230 生效 |
+| 色温 | `value_set mo=129 lc=<当前亮度> wv=<0-1000: 0暖→1000冷> wh=500` | 用户实机确认：暖→冷渐变，亮度保持不变 |
+
+## 已知限制（如实说明）
+
+1. **状态判断**：mo=225/129 为开、224 为关（用户实机确认）。129 为调节模式（灯亮）。
+2. **色温映射**：wv=0 → 2700K（暖）、wv=1000 → 6500K（冷），线性映射；HA 色温滑块即暖→冷渐变。
+3. 短信验证码发送有频率限制（code=471），连续失败请间隔几分钟再试；若一直收不到，请填自己的 App UUID 绕过验证码。
+4. 家超服务器可能对登录做风控，请勿高频重试登录。
+
+## 支持
+
+- HA 版本：2024.x 及以上（2026.9 实测可用）
+- 设备：家超 App 下所有 dtype=LT 灯（pid=25 系列，如「睡眠灯」）
+
+## 日志
+
+在 `configuration.yaml` 添加：
+
+```yaml
+logger:
+  default: warning
+  logs:
+    custom_components.jiachao: debug
+```

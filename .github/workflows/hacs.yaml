@@ -1,1 +1,12 @@
-bmFtZTogSEFDUyBBY3Rpb24NCm9uOiBbcHVzaCwgcHVsbF9yZXF1ZXN0XQ0Kam9iczoNCiAgaGFjczoNCiAgICBuYW1lOiBIQUNTIEFjdGlvbg0KICAgIHJ1bnMtb246IHVidW50dS1sYXRlc3QNCiAgICBzdGVwczoNCiAgICAgIC0gdXNlczogYWN0aW9ucy9jaGVja291dEB2NA0KICAgICAgLSBuYW1lOiBIQUNTIEFjdGlvbg0KICAgICAgICB1c2VzOiBoYWNzL2FjdGlvbkBtYWluDQogICAgICAgIHdpdGg6DQogICAgICAgICAgY2F0ZWdvcnk6IGludGVncmF0aW9uDQo=
+name: HACS Action
+on: [push, pull_request]
+jobs:
+  hacs:
+    name: HACS Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: HACS Action
+        uses: hacs/action@main
+        with:
+          category: integration

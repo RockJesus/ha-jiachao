@@ -1,1 +1,39 @@
-ew0KICAiY29uZmlnIjogew0KICAgICJzdGVwIjogew0KICAgICAgInVzZXIiOiB7DQogICAgICAgICJ0aXRsZSI6ICJKaWFDaGFvIFNtYXJ0IExpZ2h0IiwNCiAgICAgICAgImRlc2NyaXB0aW9uIjogIkxvZ2luIHdpdGggeW91ciBKaWFDaGFvIGFwcCBhY2NvdW50IChwaG9uZSBudW1iZXIgKyBwYXNzd29yZCkuIExlYXZlIGRldmljZSBVVUlEIGVtcHR5IChhdXRvLWdlbmVyYXRlZDsgZmlyc3QgbG9naW4gcmVxdWlyZXMgYW4gU01TIGNvZGUsIGFmdGVyd2FyZHMgbm8gbW9yZSk7IGFkdmFuY2VkIHVzZXJzIGNhbiBwYXN0ZSB0aGUgZGV2aWNlIFVVSUQgY2FwdHVyZWQgZnJvbSB0aGVpciBvd24gYXBwIHRvIHNraXAgdGhlIFNNUyBzdGVwLiIsDQogICAgICAgICJkYXRhIjogew0KICAgICAgICAgICJ1c2VybmFtZSI6ICJQaG9uZSBudW1iZXIiLA0KICAgICAgICAgICJwYXNzd29yZCI6ICJQYXNzd29yZCIsDQogICAgICAgICAgImRldmljZV91dWlkIjogIkRldmljZSBVVUlEIChvcHRpb25hbCwgYXV0by1nZW5lcmF0ZWQgaWYgZW1wdHkpIg0KICAgICAgICB9DQogICAgICB9LA0KICAgICAgImNvZGUiOiB7DQogICAgICAgICJ0aXRsZSI6ICJTTVMgdmVyaWZpY2F0aW9uIiwNCiAgICAgICAgImRlc2NyaXB0aW9uIjogIkppYUNoYW8gc2VydmVyIHJlcXVpcmVzIHZlcmlmaWNhdGlvbiBvZiBhIG5ldyBkZXZpY2UuIEEgY29kZSBoYXMgYmVlbiBzZW50IHRvIHlvdXIgcGhvbmU7IGVudGVyIHRoZSA2LWRpZ2l0IFNNUyBjb2RlOiIsDQogICAgICAgICJkYXRhIjogew0KICAgICAgICAgICJzbXNfY29kZSI6ICJTTVMgY29kZSINCiAgICAgICAgfQ0KICAgICAgfSwNCiAgICAgICJkZXZpY2UiOiB7DQogICAgICAgICJ0aXRsZSI6ICJTZWxlY3QgZGV2aWNlIiwNCiAgICAgICAgImRlc2NyaXB0aW9uIjogIkRpc2NvdmVyZWQgSmlhQ2hhbyBsaWdodCBkZXZpY2VzOyBzZWxlY3QgdGhlIG9uZSB0byBjb25uZWN0OiIsDQogICAgICAgICJkYXRhIjogew0KICAgICAgICAgICJkZXZpY2VfaWQiOiAiRGV2aWNlIg0KICAgICAgICB9DQogICAgICB9DQogICAgfSwNCiAgICAiZXJyb3IiOiB7DQogICAgICAiaW52YWxpZF9hdXRoIjogIkxvZ2luIGZhaWxlZDogY2hlY2sgcGhvbmUgbnVtYmVyL3Bhc3N3b3JkIiwNCiAgICAgICJpbnZhbGlkX2NvZGUiOiAiSW5jb3JyZWN0IG9yIGV4cGlyZWQgY29kZSwgcGxlYXNlIHRyeSBhZ2FpbiIsDQogICAgICAiY29kZV9zZW5kX2ZhaWxlZCI6ICJGYWlsZWQgdG8gc2VuZCBjb2RlIChwb3NzaWJseSByYXRlLWxpbWl0ZWQsIHRyeSBsYXRlcikiLA0KICAgICAgIm5vX2RldmljZXMiOiAiTm8gSmlhQ2hhbyBsaWdodCBkZXZpY2VzIGZvdW5kIiwNCiAgICAgICJkZXZpY2Vfbm90X2ZvdW5kIjogIlNlbGVjdGVkIGRldmljZSBkb2VzIG5vdCBleGlzdCINCiAgICB9LA0KICAgICJhYm9ydCI6IHsNCiAgICAgICJhbHJlYWR5X2NvbmZpZ3VyZWQiOiAiVGhpcyBkZXZpY2UgaXMgYWxyZWFkeSBjb25maWd1cmVkIg0KICAgIH0NCiAgfQ0KfQ0K
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "JiaChao Smart Light",
+        "description": "Login with your JiaChao app account (phone number + password). Leave device UUID empty (auto-generated; first login requires an SMS code, afterwards no more); advanced users can paste the device UUID captured from their own app to skip the SMS step.",
+        "data": {
+          "username": "Phone number",
+          "password": "Password",
+          "device_uuid": "Device UUID (optional, auto-generated if empty)"
+        }
+      },
+      "code": {
+        "title": "SMS verification",
+        "description": "JiaChao server requires verification of a new device. A code has been sent to your phone; enter the 6-digit SMS code:",
+        "data": {
+          "sms_code": "SMS code"
+        }
+      },
+      "device": {
+        "title": "Select device",
+        "description": "Discovered JiaChao light devices; select the one to connect:",
+        "data": {
+          "device_id": "Device"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Login failed: check phone number/password",
+      "invalid_code": "Incorrect or expired code, please try again",
+      "code_send_failed": "Failed to send code (possibly rate-limited, try later)",
+      "no_devices": "No JiaChao light devices found",
+      "device_not_found": "Selected device does not exist"
+    },
+    "abort": {
+      "already_configured": "This device is already configured"
+    }
+  }
+}

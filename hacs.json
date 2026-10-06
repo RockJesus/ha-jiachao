@@ -1,1 +1,5 @@
-ew0KICAibmFtZSI6ICLlrrbotoXmmbrog73nga8iLA0KICAiaG9tZWFzc2lzdGFudCI6ICIyMDI0LjEuMCIsDQogICJyZW5kZXJfcmVhZG1lIjogdHJ1ZQ0KfQ0K
+{
+  "name": "家超智能灯",
+  "homeassistant": "2024.1.0",
+  "render_readme": true
+}
