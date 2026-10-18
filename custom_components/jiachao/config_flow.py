@@ -173,17 +173,41 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         user_id = str(info.get("userId", info.get("uid", "")))
                     except Exception:  # noqa: BLE001
                         pass
+
+                data = {
+                    "token": self._token,
+                    "username": self._username,
+                    "password": self._password,
+                    "user_id": user_id,
+                    "device_id": dev_id,
+                    "device_uuid": self._device_uuid,
+                    "_device": device,
+                }
+                if self.source == config_entries.SOURCE_REAUTH:
+                    # 重新认证：更新现有 entry，不重复创建
+                    entry = self.hass.config_entries.async_get_entry(
+                        self.context.get("entry_id", "")
+                    )
+                    if entry is not None:
+                        self.hass.config_entries.async_update_entry(entry, data=data)
+                        return self.async_abort(reason="reauth_successful")
+
+                if self.source == config_entries.SOURCE_RECONFIGURE:
+                    # 重新配置：更新现有 entry
+                    entry = self.hass.config_entries.async_get_entry(
+                        self.context.get("entry_id", "")
+                    )
+                    if entry is not None:
+                        self.hass.config_entries.async_update_entry(entry, data=data)
+                        return self.async_abort(reason="reconfigure_successful")
+
+                # unique_id 防重复配置：仅新配置时检查，同一设备只允许一个 entry
+                await self.async_set_unique_id(dev_id)
+                self._abort_if_unique_id_configured()
+
                 return self.async_create_entry(
                     title=f"家超 {device.get('alias', device.get('name', '智能灯'))}",
-                    data={
-                        "token": self._token,
-                        "username": self._username,
-                        "password": self._password,
-                        "user_id": user_id,
-                        "device_id": dev_id,
-                        "device_uuid": self._device_uuid,
-                        "_device": device,
-                    },
+                    data=data,
                     options={
                         CONF_SCAN_INTERVAL: DEFAULT_SCAN_INTERVAL,
                     },
@@ -202,6 +226,14 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
             description_placeholders={"title": DOMAIN_TITLE},
         )
+
+    async def async_step_reauth(self, user_input=None):
+        """重新认证：token 失效时复用登录流程，成功后更新现有 entry。"""
+        return await self.async_step_user(user_input)
+
+    async def async_step_reconfigure(self, user_input=None):
+        """重新配置：复用登录流程，成功后更新现有 entry。"""
+        return await self.async_step_user(user_input)
 
     async def async_step_import(self, import_config):
         """支持 yaml 导入（可选）。"""

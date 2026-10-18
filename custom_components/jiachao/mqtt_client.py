@@ -24,7 +24,6 @@ from .const import (
     MQTT_DEFAULT_HOST,
     MQTT_DEFAULT_PORT,
     MQTT_DEFAULT_SNI,
-    MQTT_USERNAME_ZONE,
     light_topics,
     CMD_OPEN_MODE,
     CMD_CLOSE_MODE,

@@ -53,10 +53,11 @@ class JiaChaoLight(LightEntity):
     def __init__(self, coordinator):
         self._coordinator = coordinator
         self._attr_unique_id = f"jiachao_{coordinator.device_id}"
-        self._attr_name = coordinator.device_alias or DOMAIN_TITLE
+        # has_entity_name=True 时实体名由设备名提供，不再重复拼接设备名
+        self._attr_name = None
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.device_id)},
-            name=self._attr_name,
+            name=coordinator.device_alias or DOMAIN_TITLE,
             manufacturer="家超（创高智联）",
             model=coordinator.device_model or "W800 Smart Light (LT)",
             sw_version="1.0.0",

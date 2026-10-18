@@ -1,4 +1,4 @@
-# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.1
+# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.2
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
@@ -6,9 +6,23 @@
 
 开源发布版：**每个用户独立登录自己的家超账号，互不影响**。
 
-![家超](custom_components/jiachao/icon.png)
+![家超](custom_components/jiachao/brand/icon.png)
 
 ## 更新日志
+## 更新日志
+
+### v2.2.2
+- 按 HA 官方规范补齐代码规范：
+  - `__init__.py`：登录认证失败抛 `ConfigEntryAuthFailed`（触发重新认证）、临时网络故障抛 `ConfigEntryNotReady`（自动重试），不再静默返回 False；清理未使用导入
+  - `config_flow.py`：新增 `async_step_reauth` / `async_step_reconfigure`（重新认证/重配复用登录流程、更新现有 entry 不重复创建）；设备选择加 `unique_id` 防重复配置
+  - `light.py`：修复实体名冗余（`has_entity_name=True` 时不再重复拼接设备名，如「睡眠灯 睡眠灯」→「睡眠灯」）
+  - `manifest.json`：补 `loggers: ["paho.mqtt"]`（代码实际使用 paho 库 logger）
+  - brand 图标补齐 8 文件规范（icon/logo + dark_* + @2x，256/512 合规）；移除集成目录根冗余 icon.png/logo.png
+  - `api.py` / `coordinator.py` / `mqtt_client.py`：清理未使用变量与导入（pyflakes 通过）
+  - translations 补齐 reauth/reconfigure abort 文案（en/zh-Hans/strings 同步）
+
+<details>
+<summary>历史版本</summary>
 
 ### v2.2.1
 - 严格按照 HA 官方集成发布规范修复：
@@ -18,14 +32,10 @@
   - 新增 CI 工作流 `hassfest.yaml` + `hacs.yaml`（hassfest + HACS Action 校验全绿，HACS 默认仓库提交前置）
   - brand 图标核对：icon 256×256、logo 256×256（官方尺寸合规）
 
-<details>
-<summary>历史版本</summary>
-
 ### v2.2.0
 - 家超智能灯接入（账号密码登录 / 短信二次验证 / 设备发现 / 亮度色温控制 / MQTT TLS 直连）；详细协议见下方「协议实现依据」。
 
 </details>
-
 ## 功能
 
 - **账号密码登录**：使用家超 App 的手机号 + 密码登录（密码经 MD5 摘要传输）

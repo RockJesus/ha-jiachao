@@ -9,7 +9,6 @@ from .api import JiaChaoAPI
 from .mqtt_client import JiaChaoMQTT
 from .const import (
     MQTT_USERNAME_ZONE,
-    MQTT_DEFAULT_HOST,
     MQTT_DEFAULT_PORT,
     MQTT_DEFAULT_SNI,
 )

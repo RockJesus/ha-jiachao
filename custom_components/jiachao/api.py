@@ -59,7 +59,6 @@ class JiaChaoAPI:
                                              headers=headers, timeout=aiohttp.ClientTimeout(total=15)) as resp:
                 if resp.status == 401:
                     raise JiaChaoAuthError("token 无效或已过期")
-                text = await resp.text()
                 data = await resp.json(content_type=None)
         except JiaChaoAuthError:
             raise

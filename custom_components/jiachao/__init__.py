@@ -7,11 +7,11 @@ from __future__ import annotations
 import logging
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import JiaChaoAPI
+from .api import JiaChaoAPI, JiaChaoAuthError
 from .const import DOMAIN, PLATFORMS
 from .coordinator import JiaChaoCoordinator
 
@@ -35,11 +35,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             )
             token = login_result.get("token", "")
             user_id = login_result.get("userId", user_id)
+        except JiaChaoAuthError as err:
+            # 认证失败（密码错误/token 过期）→ 触发 reauth，而非永久标红
+            raise ConfigEntryAuthFailed(f"jiachao 登录认证失败: {err}") from err
         except Exception as err:  # noqa: BLE001
-            _LOGGER.error(
-                "jiachao 重新登录失败（若提示需要短信验证码，请在集成配置里重新输入账号密码"
+            # 网络/服务端临时故障 → 稍后自动重试
+            _LOGGER.warning(
+                "jiachao 重新登录暂时失败（若提示需要短信验证码，请在集成配置里重新输入账号密码"
                 "或填入自己的设备 UUID）: %s", err)
-            return False
+            raise ConfigEntryNotReady(f"jiachao 登录失败，等待重试: {err}") from err
 
     # 设备信息（含 mqtt 凭据）
     try:

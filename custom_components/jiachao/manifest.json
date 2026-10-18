@@ -10,6 +10,9 @@
   "integration_type": "hub",
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/RockJesus/ha-jiachao/issues",
+  "loggers": [
+    "paho.mqtt"
+  ],
   "requirements": [],
-  "version": "2.2.1"
+  "version": "2.2.2"
 }

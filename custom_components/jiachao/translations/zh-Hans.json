@@ -33,7 +33,9 @@
       "device_not_found": "所选设备不存在"
     },
     "abort": {
-      "already_configured": "该设备已配置"
+      "already_configured": "该设备已配置",
+      "reauth_successful": "重新认证成功",
+      "reconfigure_successful": "配置已更新"
     }
   }
 }
