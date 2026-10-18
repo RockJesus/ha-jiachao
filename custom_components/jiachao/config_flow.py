@@ -60,9 +60,17 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             self._api = JiaChaoAPI(async_get_clientsession(self.hass))
             self._username = user_input.get(CONF_USERNAME, "").strip()
             self._password = user_input.get(CONF_PASSWORD, "")
-            # 用户填了 uuid 用用户的；留空自动生成独立随机 uuid
+            # reauth/reconfigure：沿用已保存的 device_uuid（保持短信验证码信任，避免重新验证）
+            saved_uuid = ""
+            entry = self.hass.config_entries.async_get_entry(
+                self.context.get("entry_id", "")
+            )
+            if entry is not None:
+                saved_uuid = str(entry.data.get("device_uuid", "") or "")
+            # 用户填了 uuid 用用户的；否则沿用已保存的；否则生成独立随机 uuid
             self._device_uuid = (
                 (user_input.get(CONF_DEVICE_UUID) or "").strip()
+                or saved_uuid
                 or DEFAULT_TRUST_UUID
                 or str(uuid.uuid4())
             )

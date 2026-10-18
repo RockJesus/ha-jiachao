@@ -154,8 +154,7 @@ class JiaChaoLight(LightEntity):
         self.async_write_ha_state()
 
     async def async_update(self) -> None:
-        # MQTT 状态推送为主；这里确保实体在线标记正确
-        self._attr_available = (
-            self._coordinator.mqtt.client is not None
-            and self._coordinator.mqtt.client.is_connected()
-        ) or True
+        # MQTT 状态推送为主；连接/在线标记完全由 MQTT 回调（online/offline/status）维护，
+        # 这里不再强行覆盖 available（避免 `or True` 死代码导致实体恒在线）。
+        # 断线时保留最后已知状态（不回 unavailable），连接恢复后回调自动刷新。
+        return

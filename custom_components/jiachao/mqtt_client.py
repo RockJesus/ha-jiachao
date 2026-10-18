@@ -80,8 +80,18 @@ class JiaChaoMQTT:
 
     # -- 连接 ----------------------------------------------------------------
     def connect(self) -> None:
-        """建立 MQTT 连接并订阅状态 topics（阻塞，在 HA 执行器线程调用）。"""
-        if self.client and self.client.is_connected():
+        """建立 MQTT 连接并订阅状态 topics（阻塞，在 HA 执行器线程调用）。
+
+        初次连接失败不抛异常：paho 网络循环已在后台运行，会自动重连；
+        若重试 setup（ConfigEntryNotReady 后 HA 会重新 setup），复用已有 client，
+        不重复创建连接线程。
+        """
+        if self.client is not None:
+            # 已有 client：paho 后台自动重连中；连接成功后 on_connect 自动订阅 topics
+            if self.client.is_connected():
+                return
+            if not self._connected.wait(timeout=15):
+                _LOGGER.warning("jiachao mqtt 15 秒内未连上，后台继续重连中")
             return
         cid = f"{MQTT_CLIENT_ID_PREFIX}{self.device_id}_{random.randint(100000, 999999)}"
         # paho-mqtt 2.x 必须传 callback_api_version；1.x 不支持该参数 → 兼容写法
@@ -131,15 +141,17 @@ class JiaChaoMQTT:
         client.on_connect = on_connect
         client.on_message = on_message
         client.reconnect_delay_set(min_delay=5, max_delay=60)
-        try:
-            client.connect(host, self.port, keepalive=60)
-        except Exception as err:
-            raise ConnectionError(f"MQTT 连接失败 {host}:{self.port}: {err}") from err
+        # 先启动网络循环再 connect：初次连接失败时 paho 会在后台按 reconnect_delay 自动重连，
+        # 而不是一次失败后永远不重连（实体保留最后已知状态，连接恢复后回调自动刷新）
         client.loop_start()
         self.client = client
-        # 等待连接（最长 15 秒）
+        try:
+            client.connect(host, self.port, keepalive=60)
+        except Exception as err:  # noqa: BLE001
+            _LOGGER.warning("jiachao mqtt 初次连接失败，后台自动重连中: %s", err)
+        # 等待连接（最长 15 秒）；超时不代表失败——paho 仍在后台重连
         if not self._connected.wait(timeout=15):
-            raise ConnectionError("MQTT 连接超时")
+            _LOGGER.warning("jiachao mqtt 15 秒内未连上，后台继续重连中")
 
     def disconnect(self) -> None:
         if self.client:

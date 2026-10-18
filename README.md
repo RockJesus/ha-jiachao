@@ -1,4 +1,4 @@
-# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.2
+# 家超智能灯 (JiaChao) — Home Assistant 自定义集成 v2.2.3
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
@@ -10,6 +10,16 @@
 
 ## 更新日志
 ## 更新日志
+## 更新日志
+
+### v2.2.3
+- 修复：token 过期时正确触发重新认证（`ConfigEntryAuthFailed`），不再静默吞掉 401 导致实体不可控
+- 修复：重新认证/重新配置时沿用已保存的设备 UUID（保持短信验证码信任，避免重复收验证码）
+- 修复：MQTT 初次连接失败后自动在后台重连（此前失败后需手动重载集成才能恢复）
+- 修复：实体在线标记不再恒为 True，断线保留最后已知状态、恢复后自动刷新
+
+<details>
+<summary>历史版本</summary>
 
 ### v2.2.2
 - 按 HA 官方规范补齐代码规范：
@@ -20,9 +30,6 @@
   - brand 图标补齐 8 文件规范（icon/logo + dark_* + @2x，256/512 合规）；移除集成目录根冗余 icon.png/logo.png
   - `api.py` / `coordinator.py` / `mqtt_client.py`：清理未使用变量与导入（pyflakes 通过）
   - translations 补齐 reauth/reconfigure abort 文案（en/zh-Hans/strings 同步）
-
-<details>
-<summary>历史版本</summary>
 
 ### v2.2.1
 - 严格按照 HA 官方集成发布规范修复：

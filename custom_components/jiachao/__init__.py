@@ -48,7 +48,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # 设备信息（含 mqtt 凭据）
     try:
         device_info = await api.get_device_info(entry.data.get("device_id", ""))
+    except JiaChaoAuthError as err:
+        # token 失效/认证失败 → 触发 reauth，不能静默吞掉（否则实体不可控且不弹认证）
+        raise ConfigEntryAuthFailed(f"jiachao token 已失效，需要重新认证: {err}") from err
     except Exception as err:  # noqa: BLE001
+        # 网络/服务端临时故障：保留 last-known 设备信息继续 setup，MQTT 凭据取不到则后台重试
         _LOGGER.warning("jiachao deviceInfo failed: %s", err)
         device_info = {}
 
