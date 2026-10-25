@@ -157,6 +157,7 @@ Home Assistant 自定义集成，接入「家超」智能灯：账号密码登�
 <details>
 <summary>完整版本历史（点击展开）</summary>
 
+- **v2.2.6**（2026-10-26）：修复 HACS 审核（frenck CHANGES_REQUESTED）两项 —— ① 无灯光设备时 `async_show_form` 误加 `await` 导致流程崩溃，已移除；② reauth / reconfigure 改用 `async_update_reload_and_abort`，token 更新后立即重载集成，不再保持错误态直到重启
 - **v2.2.5**（2026-10-23）：**README 按福特派模板全面优化**——双语（中/英）功能特性与安装说明、HACS 官方安装按钮、支持的实体表、协议实现依据表、FAQ、五项免责声明、折叠版本历史；安装说明保持「HACS 搜索优先」
 - **v2.2.4**（2026-10-23）：安装说明改为「HACS 搜索优先」：默认列表收录后可直接搜索 `家超智能灯` / `jiachao` 安装，自定义存储库降为备选（对齐 HACS 收录后 README 规范）
 - **v2.2.3**（2026-10-22）：修复 token 过期不触发 reauth / reauth 换 UUID / MQTT 初连失败不重连 / light 在线状态恒 True 死代码

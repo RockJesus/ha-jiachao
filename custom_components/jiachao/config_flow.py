@@ -153,7 +153,8 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if lights:
             self._devices = lights
         if not self._devices:
-            return await self.async_show_form(
+            # async_show_form 非协程：直接返回表单结果，不能 await（frenck 审核 v2.2.6 修复）
+            return self.async_show_form(
                 step_id="user",
                 data_schema=vol.Schema({
                     vol.Required(CONF_USERNAME): str,
@@ -192,22 +193,31 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     "_device": device,
                 }
                 if self.source == config_entries.SOURCE_REAUTH:
-                    # 重新认证：更新现有 entry，不重复创建
+                    # 重新认证：更新现有 entry 并立即重载（frenck 审核 v2.2.6 修复：
+                    # 旧版只存 token 不重载，集成保持 AuthFailed 错误态直到 HA 重启）
                     entry = self.hass.config_entries.async_get_entry(
                         self.context.get("entry_id", "")
                     )
                     if entry is not None:
-                        self.hass.config_entries.async_update_entry(entry, data=data)
-                        return self.async_abort(reason="reauth_successful")
+                        await self.async_update_reload_and_abort(
+                            entry,
+                            data=data,
+                            unique_id=dev_id,
+                            reason="reauth_successful",
+                        )
 
                 if self.source == config_entries.SOURCE_RECONFIGURE:
-                    # 重新配置：更新现有 entry
+                    # 重新配置：更新现有 entry 并立即重载
                     entry = self.hass.config_entries.async_get_entry(
                         self.context.get("entry_id", "")
                     )
                     if entry is not None:
-                        self.hass.config_entries.async_update_entry(entry, data=data)
-                        return self.async_abort(reason="reconfigure_successful")
+                        await self.async_update_reload_and_abort(
+                            entry,
+                            data=data,
+                            unique_id=dev_id,
+                            reason="reconfigure_successful",
+                        )
 
                 # unique_id 防重复配置：仅新配置时检查，同一设备只允许一个 entry
                 await self.async_set_unique_id(dev_id)
