@@ -199,7 +199,9 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         self.context.get("entry_id", "")
                     )
                     if entry is not None:
-                        await self.async_update_reload_and_abort(
+                        # async_update_reload_and_abort 是 @callback 同步方法，返回 abort 结果
+                        # （不是协程，不能 await，且必须 return 终止 flow，否则会继续执行创建逻辑）
+                        return self.async_update_reload_and_abort(
                             entry,
                             data=data,
                             unique_id=dev_id,
@@ -212,7 +214,7 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         self.context.get("entry_id", "")
                     )
                     if entry is not None:
-                        await self.async_update_reload_and_abort(
+                        return self.async_update_reload_and_abort(
                             entry,
                             data=data,
                             unique_id=dev_id,
