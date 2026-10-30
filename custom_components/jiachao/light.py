@@ -133,7 +133,15 @@ class JiaChaoLight(LightEntity):
         """开灯 / 调亮度 / 调色温（暖→冷渐变）。"""
         brightness = kwargs.get(ATTR_BRIGHTNESS)
         kelvin = kwargs.get(ATTR_COLOR_TEMP_KELVIN)
-        if kelvin is not None:
+        if kelvin is not None and brightness is not None:
+            # 同时调色温+亮度：一次命令完成（避免两次 publish 状态跳变）
+            await self.hass.async_add_executor_job(
+                self._coordinator.mqtt.set_color_temp_and_brightness,
+                int(kelvin), brightness)
+            self._attr_is_on = True
+            self._attr_color_temp_kelvin = int(kelvin)
+            self._attr_brightness = brightness
+        elif kelvin is not None:
             await self.hass.async_add_executor_job(
                 self._coordinator.mqtt.set_color_temp, int(kelvin))
             self._attr_is_on = True

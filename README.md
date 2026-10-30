@@ -157,6 +157,7 @@ Home Assistant 自定义集成，接入「家超」智能灯：账号密码登�
 <details>
 <summary>完整版本历史（点击展开）</summary>
 
+- **v2.2.8**（2026-10-30）：健壮性与控制优化 —— ① MQTT 断线后清除连接事件（此前重载/重试集成时可能误判"已连接"立即返回，未真正建立连接）；② 灯光支持同时设置亮度+色温（一次命令下发，此前 `elif` 互斥只生效一个，且两次 publish 会导致状态跳变）
 - **v2.2.7**（2026-10-29）：修复 token 过期触发重新认证时的崩溃 —— `async_update_reload_and_abort` 是同步回调方法（非协程），`await` 它会抛 TypeError，且必须 `return` 终止流程，否则会继续执行创建重复配置的逻辑
 - **v2.2.6**（2026-10-26）：修复 HACS 审核（frenck CHANGES_REQUESTED）两项 —— ① 无灯光设备时 `async_show_form` 误加 `await` 导致流程崩溃，已移除；② reauth / reconfigure 改用 `async_update_reload_and_abort`，token 更新后立即重载集成，不再保持错误态直到重启
 - **v2.2.5**（2026-10-23）：**README 按福特派模板全面优化**——双语（中/英）功能特性与安装说明、HACS 官方安装按钮、支持的实体表、协议实现依据表、FAQ、五项免责声明、折叠版本历史；安装说明保持「HACS 搜索优先」

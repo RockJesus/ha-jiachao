@@ -129,6 +129,11 @@ class JiaChaoMQTT:
             else:
                 _LOGGER.warning("jiachao mqtt connect rc=%s", mqtt.connack_string(rc_val) if isinstance(rc_val, int) else rc_val)
 
+        def on_disconnect(cl, userdata, *args):
+            # 断线/重连期间清除连接事件：避免 connect() 复用分支误判"已连接"立即返回
+            _LOGGER.debug("jiachao mqtt disconnected")
+            self._connected.clear()
+
         def on_message(cl, userdata, msg):
             _LOGGER.debug("jiachao mqtt msg %s = %s", msg.topic, msg.payload[:500])
             self._last_message = {"topic": msg.topic, "payload": msg.payload.decode("utf-8", "replace")}
@@ -139,6 +144,7 @@ class JiaChaoMQTT:
                     _LOGGER.warning("state callback error: %s", err)
 
         client.on_connect = on_connect
+        client.on_disconnect = on_disconnect
         client.on_message = on_message
         client.reconnect_delay_set(min_delay=5, max_delay=60)
         # 先启动网络循环再 connect：初次连接失败时 paho 会在后台按 reconnect_delay 自动重连，
@@ -212,5 +218,19 @@ class JiaChaoMQTT:
         self._publish(self._req(
             "value_set", mo=CMD_NORMAL_MODE,
             lc=self._last_lc, wv=wv, wh=CMD_WH_WHITE,
+        ))
+        return 1
+
+    def set_color_temp_and_brightness(self, kelvin: int, brightness_0_255: int) -> int:
+        """同时调色温 + 亮度（一次命令，避免两次 publish 导致设备闪烁/状态跳变）。"""
+        k = max(COLOR_TEMP_MIN_K, min(COLOR_TEMP_MAX_K, int(kelvin)))
+        wv = int(round((k - COLOR_TEMP_MIN_K) / (COLOR_TEMP_MAX_K - COLOR_TEMP_MIN_K) * WV_MAX))
+        wv = max(0, min(WV_MAX, wv))
+        b = max(0, min(BRIGHTNESS_MAX, int(brightness_0_255)))
+        self._last_wv = wv
+        self._last_lc = b
+        self._publish(self._req(
+            "value_set", mo=CMD_NORMAL_MODE,
+            lc=b, wv=wv, wh=CMD_WH_WHITE,
         ))
         return 1
