@@ -23,6 +23,12 @@ Custom Home Assistant integration for the **JiaChao (家超) smart light** (Winn
 - **Light control (verified protocol)** — on/off, brightness (0-255), color temperature (2700K warm → 6500K cool), all confirmed by capture + real-device testing
 - **MQTT (TLS) direct** — real topics `smart/<deviceId>/dc/<dc>/din|dout/...`, low-latency control & state subscription
 
+## Supported devices
+
+**Currently supported: the dual-color-temperature smart light (dtype=`LT` / product_id=`25`, W800 chip).**
+
+The config flow now lists **all** JiaChao devices under your account and marks each one's support status. Models not yet supported (RGB color lights, strips, ceiling lights, switches, curtains, sensors, security devices, etc.) are shown as "待支持" — their MQTT protocols have not been captured yet and cannot be safely implemented without real traffic data. To extend support to another model, capture its traffic (simulator + Reqable, same flow as this light) and open an issue / PR with the capture.
+
 ## Installation
 
 ### Option 1: HACS (recommended)
@@ -157,6 +163,7 @@ Home Assistant 自定义集成，接入「家超」智能灯：账号密码登�
 <details>
 <summary>完整版本历史（点击展开）</summary>
 
+- **v2.2.9**（2026-10-30）：设备支持框架 —— 配置流程不再静默过滤非支持设备，账号下全部设备列出并标注型号/支持状态（待支持型号选择时明确提示）；新增设备支持表 `is_device_supported`/`device_label`，为后续按型号扩展协议铺路
 - **v2.2.8**（2026-10-30）：健壮性与控制优化 —— ① MQTT 断线后清除连接事件（此前重载/重试集成时可能误判"已连接"立即返回，未真正建立连接）；② 灯光支持同时设置亮度+色温（一次命令下发，此前 `elif` 互斥只生效一个，且两次 publish 会导致状态跳变）
 - **v2.2.7**（2026-10-29）：修复 token 过期触发重新认证时的崩溃 —— `async_update_reload_and_abort` 是同步回调方法（非协程），`await` 它会抛 TypeError，且必须 `return` 终止流程，否则会继续执行创建重复配置的逻辑
 - **v2.2.6**（2026-10-26）：修复 HACS 审核（frenck CHANGES_REQUESTED）两项 —— ① 无灯光设备时 `async_show_form` 误加 `await` 导致流程崩溃，已移除；② reauth / reconfigure 改用 `async_update_reload_and_abort`，token 更新后立即重载集成，不再保持错误态直到重启

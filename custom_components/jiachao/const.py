@@ -131,6 +131,38 @@ DEFAULT_SCAN_INTERVAL = 30
 MIN_SCAN_INTERVAL = 10
 MAX_SCAN_INTERVAL = 300
 
+# ---------------------------------------------------------------------------
+# 设备支持表（真实协议实测范围）
+# ---------------------------------------------------------------------------
+# 当前仅支持双色温灯（dtype=LT / product_id=25，W800 芯片）——协议经抓包+实机确认。
+# 家超品牌其他设备（RGB 彩灯/灯带/吸顶灯/开关/窗帘/安防等）协议未抓包，
+# 需逐类抓包扩展：确认各产品类别 dc 编号、DML 命令集、状态字段后再加入支持表。
+SUPPORTED_DTYPES = {"LT", "LIGHT"}
+SUPPORTED_PRODUCT_IDS = {"25"}
+
+
+def is_device_supported(device: dict) -> bool:
+    """判断设备是否已被本集成支持（dtype/product_id 命中已实测协议）。"""
+    dtype = str(device.get("dtype", "")).upper()
+    pid = str(device.get("product_id", "")).upper()
+    return dtype in SUPPORTED_DTYPES or pid in SUPPORTED_PRODUCT_IDS
+
+
+def device_label(device: dict) -> str:
+    """设备展示名（名称 + 型号 + 类别），用于配置流程下拉选项。"""
+    name = str(device.get("alias") or device.get("name") or "家超设备")
+    model = str(device.get("model") or device.get("mpid") or "")
+    dtype = str(device.get("dtype", "")).upper()
+    pid = str(device.get("product_id", "")).upper()
+    parts = [name]
+    if model:
+        parts.append(model)
+    if dtype:
+        parts.append(dtype)
+    if pid:
+        parts.append(f"pid={pid}")
+    return " ".join(parts)
+
 # 产品场景模式（/v2/product/light/modes 实测，pid=25 部分）
 # 9000 冥想 / 9001 办公 / 9002 夜灯 / 9003 娱乐 / 9004 阅读 / 9005 休闲 /
 # 9006 温馨 / 9105 森林 / 9107 浪漫 / 9108 柔和色彩 ...

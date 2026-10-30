@@ -19,7 +19,7 @@
       },
       "device": {
         "title": "选择设备",
-        "description": "发现以下家超灯设备，选择要接入的一台：",
+        "description": "发现 {total} 台家超设备（其中 {supported} 台受支持）。选择要接入的一台；标注「待支持」的型号协议尚未实现，需要抓包后扩展。",
         "data": {
           "device_id": "设备"
         }
@@ -30,7 +30,8 @@
       "invalid_code": "验证码错误或已过期，请重新输入",
       "code_send_failed": "验证码发送失败（可能过于频繁，请稍后再试）",
       "no_devices": "未找到家超灯设备",
-      "device_not_found": "所选设备不存在"
+      "device_not_found": "所选设备不存在",
+      "device_unsupported": "该设备型号尚未被支持（当前仅支持双色温灯）。如需接入，请在项目 Issues 反馈，或提供该设备的抓包数据以便扩展协议。"
     },
     "abort": {
       "already_configured": "该设备已配置",

@@ -28,6 +28,8 @@ from .const import (
     DOMAIN,
     DOMAIN_TITLE,
     DEFAULT_SCAN_INTERVAL,
+    is_device_supported,
+    device_label,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -145,13 +147,6 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         except Exception as err:  # noqa: BLE001
             _LOGGER.warning("device list error: %s", err)
             self._devices = []
-        lights = [
-            d for d in self._devices
-            if str(d.get("dtype", "")).upper() in ("LT", "LIGHT")
-            or str(d.get("product_id", "")).upper() in ("25",)
-        ]
-        if lights:
-            self._devices = lights
         if not self._devices:
             # async_show_form 非协程：直接返回表单结果，不能 await（frenck 审核 v2.2.6 修复）
             return self.async_show_form(
@@ -164,16 +159,21 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors={"base": "no_devices"},
                 description_placeholders={"title": DOMAIN_TITLE},
             )
+        # 全部设备列出（含待支持型号，标注后由 device 步骤校验）；不支持的型号
+        # 选择后给出明确提示，避免"账号下有设备但列表为空"的困惑
         return await self.async_step_device()
 
     async def async_step_device(self, user_input=None):
-        """选择要接入的灯设备。"""
+        """选择要接入的家超设备（列出全部设备，标注支持状态）。"""
         errors: dict[str, str] = {}
         if user_input is not None:
             dev_id = user_input.get(CONF_DEVICE_ID, "")
             device = next((d for d in self._devices if str(d.get("ID", "")) == dev_id), None)
             if device is None:
                 errors["base"] = "device_not_found"
+            elif not is_device_supported(device):
+                # 该型号协议尚未实现（待抓包扩展）——明确提示，不静默通过
+                errors["base"] = "device_unsupported"
             else:
                 user_id = self._user_id
                 if not user_id:
@@ -233,8 +233,13 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     },
                 )
 
+        supported_n = sum(1 for d in self._devices if is_device_supported(d))
         dev_choices = {
-            str(d.get("ID", "")): f"{d.get('alias', d.get('name', '?'))} ({d.get('ID', '')})"
+            str(d.get("ID", "")): (
+                device_label(d)
+                if is_device_supported(d)
+                else f"{device_label(d)}（待支持，暂不可接入）"
+            )
             for d in self._devices
         }
         schema = vol.Schema({
@@ -244,7 +249,11 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="device",
             data_schema=schema,
             errors=errors,
-            description_placeholders={"title": DOMAIN_TITLE},
+            description_placeholders={
+                "title": DOMAIN_TITLE,
+                "total": str(len(self._devices)),
+                "supported": str(supported_n),
+            },
         )
 
     async def async_step_reauth(self, user_input=None):

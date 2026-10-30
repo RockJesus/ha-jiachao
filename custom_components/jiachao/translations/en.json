@@ -19,7 +19,7 @@
       },
       "device": {
         "title": "Select device",
-        "description": "Discovered JiaChao light devices; select the one to connect:",
+        "description": "Found {total} JiaChao device(s) ({supported} supported). Select the one to connect; entries marked \"not yet supported\" need packet capture before their protocol can be added.",
         "data": {
           "device_id": "Device"
         }
@@ -30,7 +30,8 @@
       "invalid_code": "Incorrect or expired code, please try again",
       "code_send_failed": "Failed to send code (possibly rate-limited, try later)",
       "no_devices": "No JiaChao light devices found",
-      "device_not_found": "Selected device does not exist"
+      "device_not_found": "Selected device does not exist",
+      "device_unsupported": "This device model is not yet supported (currently only the dual-color-temperature light). Report it via project Issues, or provide captured traffic for this model to extend support."
     },
     "abort": {
       "already_configured": "This device is already configured",
