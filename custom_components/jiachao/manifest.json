@@ -13,6 +13,8 @@
   "loggers": [
     "paho.mqtt"
   ],
-  "requirements": [],
-  "version": "2.2.9"
+  "requirements": [
+    "paho-mqtt>=2.1.0"
+  ],
+  "version": "2.3.0"
 }
