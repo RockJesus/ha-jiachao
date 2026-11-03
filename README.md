@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![HACS 审核中](https://img.shields.io/badge/HACS-默认仓库收录审核中-41BDF5.svg)](https://github.com/hacs/default/pull/12368)
+[![HACS 官方默认仓库](https://img.shields.io/badge/HACS-官方默认仓库已收录-41BDF5.svg)](https://github.com/hacs/default/pull/12368)
 [![最新版本](https://img.shields.io/github/v/release/RockJesus/ha-jiachao)](https://github.com/RockJesus/ha-jiachao/releases/latest)
 [![GitHub 下载量](https://img.shields.io/github/downloads/RockJesus/ha-jiachao/total)](https://github.com/RockJesus/ha-jiachao/releases)
 [![HA 版本](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-blue.svg)](https://www.home-assistant.io/)
@@ -33,11 +33,11 @@ The config flow now lists **all** JiaChao devices under your account and marks e
 
 ### Option 1: HACS (recommended)
 
-This integration is under review for the official **HACS default repository**. Click the button below to open HACS on your Home Assistant and install it in one go:
+This integration is part of the official **HACS default repository**. Click the button below to open HACS on your Home Assistant and install it in one go:
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=RockJesus&repository=ha-jiachao&category=integration)
 
-> Button not working? Do it manually: HACS → Integrations → search "**家超智能灯**" or `jiachao` → Download → restart Home Assistant. If the default list has not synced yet, add it as a **custom repository** as a fallback.
+> Button not working? Do it manually: HACS → Integrations → search "**家超智能灯**" or `jiachao` → Download → restart Home Assistant.
 
 ### Option 2: Manual installation
 
@@ -86,11 +86,11 @@ Home Assistant 自定义集成，接入「家超」智能灯：账号密码登�
 
 ### 方式一：通过 HACS 安装（推荐）
 
-本集成正在审核加入 **HACS 官方默认仓库**，点击下方按钮即可在你的 Home Assistant 中直接打开 HACS 并安装：
+本集成已收录于 **HACS 官方默认仓库**（[hacs/default#12368](https://github.com/hacs/default/pull/12368)，2026-11-03 合并），点击下方按钮即可在你的 Home Assistant 中直接打开 HACS 并安装：
 
 [![在 HACS 中打开](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=RockJesus&repository=ha-jiachao&category=integration)
 
-> 按钮无法使用？也可手动操作：HACS → 集成 → 搜索「**家超智能灯**」或 `jiachao` → 下载 → 重启 Home Assistant。若默认列表尚未同步，可先通过「**自定义存储库**」添加 `https://github.com/RockJesus/ha-jiachao`（类别：集成）。
+> 按钮无法使用？也可手动操作：HACS → 集成 → 搜索「**家超智能灯**」或 `jiachao` → 下载 → 重启 Home Assistant。
 
 ### 方式二：手动安装
 
@@ -163,6 +163,7 @@ Home Assistant 自定义集成，接入「家超」智能灯：账号密码登�
 <details>
 <summary>完整版本历史（点击展开）</summary>
 
+- **v2.3.0**（2026-11-03）：完成 HACS 收录 —— 按 frenck 第二轮评审意见在 manifest 显式声明 `paho-mqtt>=2.1.0`（此前依赖 HA MQTT 集成隐式携带，在未配置 MQTT 的环境下集成无法加载）；审计全部 import 确认无其他未声明依赖；**hacs/default#12368 已合并，集成进入官方默认仓库**；README 更新为已收录状态
 - **v2.2.9**（2026-10-30）：设备支持框架 —— 配置流程不再静默过滤非支持设备，账号下全部设备列出并标注型号/支持状态（待支持型号选择时明确提示）；新增设备支持表 `is_device_supported`/`device_label`，为后续按型号扩展协议铺路
 - **v2.2.8**（2026-10-30）：健壮性与控制优化 —— ① MQTT 断线后清除连接事件（此前重载/重试集成时可能误判"已连接"立即返回，未真正建立连接）；② 灯光支持同时设置亮度+色温（一次命令下发，此前 `elif` 互斥只生效一个，且两次 publish 会导致状态跳变）
 - **v2.2.7**（2026-10-29）：修复 token 过期触发重新认证时的崩溃 —— `async_update_reload_and_abort` 是同步回调方法（非协程），`await` 它会抛 TypeError，且必须 `return` 终止流程，否则会继续执行创建重复配置的逻辑
