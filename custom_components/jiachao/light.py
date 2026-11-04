@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import json
+from pathlib import Path
 
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
@@ -36,6 +37,11 @@ DISCONNECT_GRACE_SECONDS = 30
 # 控制命令失败时的翻译键（文案见 translations/*.json 的 exceptions 段）
 TRANSLATION_KEY_NOT_CONNECTED = "not_connected"
 
+# 集成版本号从 manifest.json 读取，避免实体 sw_version 与实际版本不一致
+INTEGRATION_VERSION: str = json.loads(
+    (Path(__file__).parent / "manifest.json").read_text(encoding="utf-8")
+).get("version", "unknown")
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -68,7 +74,7 @@ class JiaChaoLight(LightEntity):
             name=coordinator.device_alias or DOMAIN_TITLE,
             manufacturer="家超（创高智联）",
             model=coordinator.device_model or "W800 Smart Light (LT)",
-            sw_version="1.0.0",
+            sw_version=INTEGRATION_VERSION,
         )
         self._attr_is_on = False
         self._attr_brightness = None

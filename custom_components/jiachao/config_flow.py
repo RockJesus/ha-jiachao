@@ -17,6 +17,13 @@ from homeassistant import config_entries
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import JiaChaoAPI, JiaChaoCodeRequiredError
+
+# HA 2024.1 的 config_entries 里没有 SOURCE_RECONFIGURE（更晚版本才加入），
+# 直接取属性会在旧版本上抛 AttributeError，导致新建配置流程崩溃。
+# 这里用常量兜底：缺失时退化为 "reconfigure" 字面量，保证旧版本可用。
+SOURCE_RECONFIGURE = getattr(
+    config_entries, "SOURCE_RECONFIGURE", "reconfigure"
+)
 from .const import (
     CONF_USERNAME,
     CONF_PASSWORD,
@@ -208,7 +215,7 @@ class JiaChaoConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                             reason="reauth_successful",
                         )
 
-                if self.source == config_entries.SOURCE_RECONFIGURE:
+                if self.source == SOURCE_RECONFIGURE:
                     # 重新配置：更新现有 entry 并立即重载
                     entry = self.hass.config_entries.async_get_entry(
                         self.context.get("entry_id", "")

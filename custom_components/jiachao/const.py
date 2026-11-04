@@ -49,9 +49,6 @@ API_PATH_HOMES = "/v2/group/homes"
 API_PATH_ROOMS = "/v2/group/home/rooms"
 API_PATH_DEVICES = "/v2/user/device/list"
 API_PATH_DEVICE_INFO = "/v2/user/device/deviceInfo"
-API_PATH_APP_DATA = "/v2/user/app/data"
-API_PATH_ZONE = "/v2/server/zone"
-API_PATH_LIGHT_MODES = "/v2/product/light/modes"
 
 # 家超 API 请求头
 API_HEADERS = {
@@ -66,7 +63,6 @@ API_HEADERS = {
 # ---------------------------------------------------------------------------
 # MQTT（deviceInfo 下发的服务器参数）
 # ---------------------------------------------------------------------------
-MQTT_PORT = 8883  # TLS
 # clientId 格式（App 实测）: and_<deviceId>_<随机后缀>
 MQTT_CLIENT_ID_PREFIX = "and_"
 # username 格式（App 实测）: <deviceId>_<zone><userId>
@@ -92,7 +88,6 @@ def light_topics(device_id: str, dc: str = "25") -> tuple[str, str]:
         f"smart/{device_id}/dc/{dc}/dout/#",
     )
 
-
 # DML 命令（实测验证 + 用户实机确认）
 # 开关: value_set mo=225(开) / 224(关)   —— 用户实机确认：点开灯灭=224 是关，225 是开
 # 亮度/色温: value_set mo=129 lc=<0-255> wv=<色温0-1000> wh=500（129=亮灯调节模式）
@@ -105,21 +100,12 @@ CMD_WH_WHITE = 500       # 白光分量（App 实测固定 500）
 BRIGHTNESS_MAX = 255     # lc 亮度范围 0-255（实测 60/116/230）
 WV_MAX = 1000            # wv 色温编码范围 0-1000（0=暖 1000=冷）
 
-
 # ---------------------------------------------------------------------------
 # 设备状态字段（App JSON -> HA 实体）
 # ---------------------------------------------------------------------------
-ATTR_POWER = "power"
 ATTR_BRIGHTNESS = "brightness"
-ATTR_COLOR_TEMP = "color_temp"
-ATTR_RGB = "rgb"
-ATTR_ONLINE = "online"
-ATTR_MODEL = "model"
-ATTR_DEVICE_NAME = "alias"
-ATTR_DEVICE_ID = "ID"
 
 # 亮度归一化：家超 App 0-100
-BRIGHTNESS_SCALE = 100
 # 色温范围（开尔文）—— wv 0-1000 线性映射 2700K-6500K
 COLOR_TEMP_MIN_K = 2700
 COLOR_TEMP_MAX_K = 6500
@@ -128,8 +114,6 @@ DEFAULT_WV = 500
 
 # 默认轮询间隔（秒）——MQTT 状态为主，轮询为兜底
 DEFAULT_SCAN_INTERVAL = 30
-MIN_SCAN_INTERVAL = 10
-MAX_SCAN_INTERVAL = 300
 
 # ---------------------------------------------------------------------------
 # 设备支持表（真实协议实测范围）
@@ -146,7 +130,6 @@ def is_device_supported(device: dict) -> bool:
     dtype = str(device.get("dtype", "")).upper()
     pid = str(device.get("product_id", "")).upper()
     return dtype in SUPPORTED_DTYPES or pid in SUPPORTED_PRODUCT_IDS
-
 
 def device_label(device: dict) -> str:
     """设备展示名（名称 + 型号 + 类别），用于配置流程下拉选项。"""
