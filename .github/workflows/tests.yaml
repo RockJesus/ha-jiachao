@@ -10,11 +10,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          # 固定 3.11：pytest-homeassistant-custom-component 的线程泄漏检查
+          # 在 Python 3.12 下会误报 _run_safe_shutdown_loop 线程（与本集成无关）
+          python-version: "3.11"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest-homeassistant-custom-component
+          pip install "pytest-homeassistant-custom-component"
       - name: Run tests
         run: pytest tests/ -v
         env:
