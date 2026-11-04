@@ -12,6 +12,7 @@ from homeassistant.components.light import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity import DeviceInfo
 
@@ -25,8 +26,15 @@ from .const import (
     COLOR_TEMP_MAX_K,
     WV_MAX,
 )
+from .mqtt_client import JiaChaoNotConnected
 
 _LOGGER = logging.getLogger(__name__)
+
+# MQTT 断开后等待该秒数仍未恢复才标记实体不可用（防抖，避免短暂抖动闪烁 UI）
+DISCONNECT_GRACE_SECONDS = 30
+
+# 控制命令失败时的翻译键（文案见 translations/*.json 的 exceptions 段）
+TRANSLATION_KEY_NOT_CONNECTED = "not_connected"
 
 
 async def async_setup_entry(
@@ -66,7 +74,49 @@ class JiaChaoLight(LightEntity):
         self._attr_brightness = None
         self._attr_color_temp_kelvin = COLOR_TEMP_MAX_K
         self._attr_available = True
+        self._disconnect_handle = None
         coordinator.set_state_listener(self._on_state)
+        coordinator.set_connection_listener(self._on_connection)
+
+    @callback
+    def _on_connection(self, connected: bool) -> None:
+        """MQTT 连接状态变化（paho 线程回调，需调度回事件循环）。
+
+        断开后不立即置不可用，等 DISCONNECT_GRACE_SECONDS 秒防抖：
+        短暂抖动不闪 UI，持续断开才标记离线，避免用户看着"正常"实际已失联。
+        """
+        if connected:
+            self.hass.loop.call_soon_threadsafe(self._cancel_grace)
+            self.hass.loop.call_soon_threadsafe(self._set_available, True)
+            return
+
+        def _schedule() -> None:
+            self._cancel_grace()
+            self._disconnect_handle = self.hass.loop.call_later(
+                DISCONNECT_GRACE_SECONDS, self._mark_offline
+            )
+
+        self.hass.loop.call_soon_threadsafe(_schedule)
+
+    @callback
+    def _cancel_grace(self) -> None:
+        if self._disconnect_handle is not None:
+            self._disconnect_handle.cancel()
+            self._disconnect_handle = None
+
+    @callback
+    def _mark_offline(self) -> None:
+        self._disconnect_handle = None
+        # 双保险：定时器若在重连后仍被误触发，以真实连接状态为准
+        if self._coordinator.is_mqtt_connected():
+            return
+        self._set_available(False)
+
+    @callback
+    def _set_available(self, available: bool) -> None:
+        if self._attr_available != available:
+            self._attr_available = available
+            self.async_write_ha_state()
 
     @callback
     def _on_state(self, message: dict) -> None:
@@ -129,40 +179,57 @@ class JiaChaoLight(LightEntity):
             self.hass.loop.call_soon_threadsafe(self.async_write_ha_state)
 
     # -- 控制（真实协议） -----------------------------------------------------
+    async def _send(self, func, *args) -> None:
+        """执行控制命令；未连接或下发失败时向用户抛出可读错误，不做乐观更新。"""
+        try:
+            await self.hass.async_add_executor_job(func, *args)
+        except JiaChaoNotConnected as err:
+            _LOGGER.warning("jiachao 控制命令未发送: %s", err)
+            self._set_available(False)
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key=TRANSLATION_KEY_NOT_CONNECTED,
+            ) from err
+
     async def async_turn_on(self, **kwargs) -> None:
         """开灯 / 调亮度 / 调色温（暖→冷渐变）。"""
         brightness = kwargs.get(ATTR_BRIGHTNESS)
         kelvin = kwargs.get(ATTR_COLOR_TEMP_KELVIN)
+        mqtt = self._coordinator.mqtt
         if kelvin is not None and brightness is not None:
             # 同时调色温+亮度：一次命令完成（避免两次 publish 状态跳变）
-            await self.hass.async_add_executor_job(
-                self._coordinator.mqtt.set_color_temp_and_brightness,
-                int(kelvin), brightness)
+            await self._send(mqtt.set_color_temp_and_brightness, int(kelvin), brightness)
             self._attr_is_on = True
             self._attr_color_temp_kelvin = int(kelvin)
             self._attr_brightness = brightness
         elif kelvin is not None:
-            await self.hass.async_add_executor_job(
-                self._coordinator.mqtt.set_color_temp, int(kelvin))
+            await self._send(mqtt.set_color_temp, int(kelvin))
             self._attr_is_on = True
             self._attr_color_temp_kelvin = int(kelvin)
         elif brightness is not None:
-            await self.hass.async_add_executor_job(
-                self._coordinator.mqtt.set_brightness, brightness)
+            await self._send(mqtt.set_brightness, brightness)
             self._attr_is_on = True
             self._attr_brightness = brightness
         else:
-            await self.hass.async_add_executor_job(self._coordinator.mqtt.turn_on)
+            await self._send(mqtt.turn_on)
             self._attr_is_on = True
         self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs) -> None:
-        await self.hass.async_add_executor_job(self._coordinator.mqtt.turn_off)
+        await self._send(self._coordinator.mqtt.turn_off)
         self._attr_is_on = False
         self.async_write_ha_state()
 
+    async def async_added_to_hass(self) -> None:
+        """加入 HA 时按真实连接状态初始化可用性。"""
+        self._attr_available = self._coordinator.is_mqtt_connected()
+
+    async def async_will_remove_from_hass(self) -> None:
+        """移除时清理未触发的防抖定时器。"""
+        self._cancel_grace()
+        await super().async_will_remove_from_hass()
+
     async def async_update(self) -> None:
-        # MQTT 状态推送为主；连接/在线标记完全由 MQTT 回调（online/offline/status）维护，
-        # 这里不再强行覆盖 available（避免 `or True` 死代码导致实体恒在线）。
-        # 断线时保留最后已知状态（不回 unavailable），连接恢复后回调自动刷新。
+        # MQTT 状态推送为主；可用性由连接回调（含 30 秒防抖）维护，
+        # 这里不强行覆盖，避免 `or True` 死代码导致实体恒在线。
         return

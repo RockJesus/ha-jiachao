@@ -38,5 +38,10 @@
       "reauth_successful": "Re-authentication successful",
       "reconfigure_successful": "Configuration updated"
     }
+  },
+  "exceptions": {
+    "not_connected": {
+      "message": "The JiaChao device is not connected, so the command was not sent. Please try again shortly; if it does not recover, check your network or reload the integration."
+    }
   }
 }

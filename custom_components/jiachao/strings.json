@@ -38,5 +38,10 @@
       "reauth_successful": "重新认证成功",
       "reconfigure_successful": "配置已更新"
     }
+  },
+  "exceptions": {
+    "not_connected": {
+      "message": "家超设备当前未连接，命令未发送。请稍候重试；若长时间未恢复，请检查网络或重新加载集成。"
+    }
   }
 }

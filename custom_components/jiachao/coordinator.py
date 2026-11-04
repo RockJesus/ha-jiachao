@@ -30,6 +30,7 @@ class JiaChaoCoordinator:
         self.device_alias = str(device.get("alias", device.get("name", "家超智能灯")))
         self.device_model = str(device.get("model", device.get("mpid", "")))
         self._state_listener = None
+        self._connection_listener = None
 
         # MQTT 参数（优先取配置时保存的设备 JSON 里的 mqtt，其次 deviceInfo，兜底默认值）
         mqtt_cfg = device.get("mqtt") or device_info.get("mqtt") or {}
@@ -59,6 +60,15 @@ class JiaChaoCoordinator:
     def set_state_listener(self, cb):
         self._state_listener = cb
         self.mqtt.set_state_callback(cb)
+
+    def set_connection_listener(self, cb):
+        """注册连接状态监听（MQTT 断线/恢复时通知实体刷新可用性）。"""
+        self._connection_listener = cb
+        self.mqtt.set_connection_callback(cb)
+
+    def is_mqtt_connected(self) -> bool:
+        """当前 MQTT 是否已连接。"""
+        return bool(self.mqtt.client and self.mqtt.client.is_connected())
 
     def connect_mqtt(self) -> None:
         """连接 MQTT（阻塞调用，放执行器线程）。"""

@@ -39,6 +39,10 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 
+class JiaChaoNotConnected(Exception):
+    """MQTT 未连接时下发命令（由 light 平台转换为 HomeAssistantError 提示用户）。"""
+
+
 class JiaChaoMQTT:
     """管理一个设备的 MQTT 连接。"""
 
@@ -69,6 +73,7 @@ class JiaChaoMQTT:
         self.client: mqtt.Client | None = None
         self._connected = threading.Event()
         self._state_callback = None  # callable(topic, payload)
+        self._connection_callback = None  # callable(is_connected: bool)
         self._last_message: dict | None = None
         # 当前色温（wv 0-1000，0=暖 1000=冷），初始自然白
         self._last_wv = DEFAULT_WV
@@ -77,6 +82,18 @@ class JiaChaoMQTT:
 
     def set_state_callback(self, cb):
         self._state_callback = cb
+
+    def set_connection_callback(self, cb):
+        """连接状态变化回调（paho 线程调用，cb 内需自行调度回事件循环）。"""
+        self._connection_callback = cb
+
+    def _notify_connection(self, connected: bool) -> None:
+        if not self._connection_callback:
+            return
+        try:
+            self._connection_callback(connected)
+        except Exception as err:  # noqa: BLE001
+            _LOGGER.warning("connection callback error: %s", err)
 
     # -- 连接 ----------------------------------------------------------------
     def connect(self) -> None:
@@ -126,6 +143,7 @@ class JiaChaoMQTT:
                 self._connected.set()
                 cl.subscribe(self._state_prefix, qos=0)
                 _LOGGER.debug("subscribed %s", self._state_prefix)
+                self._notify_connection(True)
             else:
                 _LOGGER.warning("jiachao mqtt connect rc=%s", mqtt.connack_string(rc_val) if isinstance(rc_val, int) else rc_val)
 
@@ -133,6 +151,7 @@ class JiaChaoMQTT:
             # 断线/重连期间清除连接事件：避免 connect() 复用分支误判"已连接"立即返回
             _LOGGER.debug("jiachao mqtt disconnected")
             self._connected.clear()
+            self._notify_connection(False)
 
         def on_message(cl, userdata, msg):
             _LOGGER.debug("jiachao mqtt msg %s = %s", msg.topic, msg.payload[:500])
@@ -170,11 +189,17 @@ class JiaChaoMQTT:
 
     # -- 控制（真实协议，实测 2026-09-24） -------------------------------------
     def _publish(self, payload: dict) -> None:
+        """下发命令。未连接时抛 JiaChaoNotConnected，避免命令被静默丢弃。"""
         if not self.client or not self.client.is_connected():
-            return
+            raise JiaChaoNotConnected("家超设备未连接，命令未发送（连接恢复后请重试）")
         data = json.dumps({"m": {"req": payload}}, separators=(",", ":"))
         _LOGGER.debug("jiachao publish %s = %s", self._cmd_topic, data)
-        self.client.publish(self._cmd_topic, data, qos=0)
+        info = self.client.publish(self._cmd_topic, data, qos=0)
+        # QoS0 的 publish 在无连接时也可能返回 rc=MQTT_ERR_NO_CONN，一并视为失败
+        if info is not None and getattr(info, "rc", 0) != 0:
+            raise JiaChaoNotConnected(
+                f"家超设备命令下发失败（rc={getattr(info, 'rc', 'unknown')}）"
+            )
 
     def _req(self, action: str, **fields) -> dict:
         req = {"a": action, "rand": random.randint(100000, 999999)}
