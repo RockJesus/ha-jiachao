@@ -17,3 +17,5 @@ jobs:
           pip install pytest-homeassistant-custom-component
       - name: Run tests
         run: pytest tests/ -v
+        env:
+          PYTHONPATH: .
